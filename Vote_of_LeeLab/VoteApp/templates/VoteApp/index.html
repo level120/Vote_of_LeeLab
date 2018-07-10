@@ -1,0 +1,59 @@
+{% extends "VoteApp/layout.html" %}
+{% block content %}
+
+<section>
+	<h2 class="title">{{ title }}</h2>
+	<p class="timer"><span id="day"></span>{{ day }}<span id="hour"></span>{{ hour }}<span id="min"></span>{{ min }}<span id="sec"></span>{{ sec }}</p>
+</section>
+
+<script>
+var dday_second = {{ server_time }};
+
+var countdown = function() {
+
+	--dday_second
+	
+	var rest = dday_second;
+	var sec = rest % 60;
+	var min = ((rest - sec) / 60) % 60;
+	var hours = ((((rest - sec ) / 60 ) - min ) / 60) % 24;
+	var days = ((((((rest - sec ) / 60 ) - min ) / 60) - hours) / 24);
+	var count = [days, hours, min, sec];
+
+	return count;
+}
+
+var recalc = function() {
+	var counter = countdown();
+	document.getElementById('day').textContent = counter[0];
+	document.getElementById('hour').textContent = counter[1];
+	document.getElementById('min').textContent = counter[2];
+	document.getElementById('sec').textContent = counter[3];
+	refresh();
+}
+
+var refresh = function() {
+	var total = 0;
+	total += parseInt(document.getElementById('day').textContent);
+	total += parseInt(document.getElementById('hour').textContent);
+	total += parseInt(document.getElementById('min').textContent);
+	total += parseInt(document.getElementById('sec').textContent);
+
+	if (total > 0) {
+		var timer_counter = setTimeout(recalc, 1000);
+	}
+	else {
+		document.getElementById('day').textContent = 0;
+		document.getElementById('hour').textContent = 0;
+		document.getElementById('min').textContent = 0;
+		document.getElementById('sec').textContent = 0;
+
+		document.getElementById('result').textContent = 'Fin.';
+
+		clearTimeout(timer_counter);
+	}
+}
+recalc();
+</script>
+
+{% endblock %}

@@ -1,0 +1,27 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>{{ title }}</title>
+    {% load staticfiles %}
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'site.css' %}" />
+    <script src="{% static 'jquery.IwtCountdown-1.0.js' %}"></script>
+</head>
+
+<body>
+    <div class="navbar">
+       <a href="/" class="navbar-brand">Hello Django</a>
+       <a href="{% url 'index' %}" class="navbar-item">Home</a>
+       <a href="{% url 'about' %}" class="navbar-item">About</a>
+    </div>
+
+    <div class="body-content">
+    {% block content %}{% endblock %}
+        <hr/>
+        <footer>
+            <p>&copy; 2018</p>
+        </footer>
+    </div>
+</body>
+</html>

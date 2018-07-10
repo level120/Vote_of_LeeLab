@@ -1,0 +1,49 @@
+@import url(https://fonts.googleapis.com/earlyaccess/notosanskr.css);
+@import url(https://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+
+body {
+    font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, 'Apple SD Gothic Neo', 'Noto Sans CJK KR', 'Noto Sans KR', '³ª´®¹Ù¸¥°íµñ', '³ª´®°íµñ', 'NanumGothic', '¸¼Àº°íµñ', 'Malgun Gothic', 'Nanum Gothic', sans-serif;
+}
+
+.navbar {
+    background-color: lightslategray;
+    font-size: 1em;
+    color: white;
+    padding: 8px 5px 8px 5px;
+}
+
+    .navbar a {
+        text-decoration: none;
+        color: inherit;
+    }
+
+.navbar-brand {
+    font-size: 1.2em;
+    font-weight: 600;
+}
+
+.navbar-item {
+    font-variant: small-caps;
+    margin-left: 30px;
+}
+
+.body-content {
+    padding: 5px;
+}
+
+.timer {
+    font-weight: bold;
+    font-size: 24px;
+    text-align: center;
+}
+
+.timer span {
+    margin-left: 30px;
+    font-size: 72px;
+}
+
+.title {
+    font-weight: bold;
+    font-size: 72px;
+    text-align: center;
+}
