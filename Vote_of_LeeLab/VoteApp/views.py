@@ -4,7 +4,7 @@ import datetime, time
 # Create your views here.
 
 # CountDown
-COUNTDOWN_TARGET_DATE = datetime.datetime(2018, 7, 11, 10, 00, 00, 000000)
+COUNTDOWN_TARGET_DATE = datetime.datetime(2018, 9, 1, 00, 00, 00, 000000)
 
 def index(request):
     if COUNTDOWN_TARGET_DATE > datetime.datetime.now():
