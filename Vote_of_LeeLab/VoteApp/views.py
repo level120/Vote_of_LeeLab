@@ -4,7 +4,7 @@ import datetime, time
 # Create your views here.
 
 # CountDown
-COUNTDOWN_TARGET_DATE = datetime.datetime(2018, 9, 1, 00, 00, 00, 000000)
+COUNTDOWN_TARGET_DATE = datetime.datetime(2018, 8, 24, 00, 00, 00, 000000)
 
 def index(request):
     if COUNTDOWN_TARGET_DATE > datetime.datetime.now():
@@ -15,10 +15,6 @@ def index(request):
             "VoteApp/index.html",
            {
                'title' : "투표까지 남은시간",
-               'day' : "일",
-               'hour' : "시간",
-               'min' : "분",
-               'sec' : "초",
                'server_time' : send_data
            }
         )
