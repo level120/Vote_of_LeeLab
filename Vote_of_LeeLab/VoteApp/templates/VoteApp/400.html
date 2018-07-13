@@ -1,0 +1,15 @@
+﻿{% extends "VoteApp/layout.html" %}
+{% block content %}
+<div id="content">
+    <div class="container">
+        <div class="page-content">
+            <div class="error-page">
+                <h1>400</h1>
+                <h3>Bad Request</h3>
+                <p>Your brower(or proxy) sent a request that this server could not understand.</p>
+                <div class="text-center"><a href="{% url 'index' %}" class="btn-system btn-small">홈으로 돌아가기</a></div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

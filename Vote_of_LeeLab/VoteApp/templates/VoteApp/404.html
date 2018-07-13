@@ -1,0 +1,15 @@
+﻿{% extends "VoteApp/layout.html" %}
+{% block content %}
+<div id="content">
+    <div class="container">
+        <div class="page-content">
+            <div class="error-page">
+                <h1>404</h1>
+                <h3>Oops, Sorry We can't find that page!</h3>
+                <p>Either something went wrong or the page doesn't exist anymore.</p>
+                <div class="text-center"><a href="{% url 'index' %}" class="btn-system btn-small">홈으로 돌아가기</a></div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

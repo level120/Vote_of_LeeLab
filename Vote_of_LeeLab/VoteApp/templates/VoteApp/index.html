@@ -2,58 +2,63 @@
 {% block content %}
 
 <section>
-	<h2 class="title">{{ title }}</h2>
-	<p class="timer"><span id="day"></span>일<span id="hour"></span>시<span id="min"></span>분<span id="sec"></span>초</p>
+    <div class="pricing-section" style="padding-top:60px; padding-bottom:60px;">
+            <div class="container">
+                
+                <!-- Start Call Action -->
+                <div class="call-action call-action-boxed call-action-style1 clearfix">
+                    <!-- Call Action Button -->
+                    <h2 style="text-align:center;" class="primary">{{ date_of_begin_time }}</h2>
+                </div>
+                <!-- End Call Action -->
+
+                <div class="alert alert-success" role="alert">
+                    <h4 style="text-align:center;" class="alert-heading">남은 시간 : <span style="margin-left:5px" id="day"></span>일<span style="margin-left:15px" id="hour"></span>시<span style="margin-left:15px" id="min"></span>분<span style="margin-left:15px" id="sec"></span>초</h4>
+                </div>
+                
+                <div style="text-align:center;">
+                    <button type="button" id="btnLike" class="btn btn-success glyphicon glyphicon-thumbs-up">0</button>
+                    <button type="button" id="btnDisLike" class="btn btn-success glyphicon glyphicon-thumbs-down">0</button>
+                </div>
+
+            </div>
+        </div>
 </section>
 
 <script>
-var dday_second = {{ server_time }};
+    var like = 0;
+    var dislike = 0;
 
-var countdown = function() {
+    $(document).ready(function () {
+        var dday = {{ server_time }};
 
-	--dday_second
-	
-	var rest = dday_second;
-	var sec = rest % 60;
-	var min = ((rest - sec) / 60) % 60;
-	var hours = ((((rest - sec ) / 60 ) - min ) / 60) % 24;
-	var days = ((((((rest - sec ) / 60 ) - min ) / 60) - hours) / 24);
-	var count = [days, hours, min, sec];
+        var timer = setInterval(function () {
+            if (dday < 1) {
+                /* need refresh function */
+                clearInterval(timer);
+            } else {
+                var rest = dday--;
+                var sec = rest % 60;
+                var min = ((rest - sec) / 60) % 60;
+                var hours = ((((rest - sec) / 60) - min) / 60) % 24;
+                var days = ((((((rest - sec) / 60) - min) / 60) - hours) / 24);
 
-	return count;
-}
+                $("#sec").html((sec < 10) ? ('0' + sec) : sec);
+                $("#min").html((min < 10) ? ('0' + min) : min);
+                $("#hour").html((hours < 10) ? ('0' + hours) : hours);
+                $("#day").html((days < 10) ? ('0' + days) : days);
+            }
+        }, 1000);
+    });
 
-var recalc = function() {
-	var counter = countdown();
-	document.getElementById('day').textContent = counter[0];
-	document.getElementById('hour').textContent = counter[1];
-	document.getElementById('min').textContent = counter[2];
-	document.getElementById('sec').textContent = counter[3];
-	refresh();
-}
-
-var refresh = function() {
-	var total = 0;
-	total += parseInt(document.getElementById('day').textContent);
-	total += parseInt(document.getElementById('hour').textContent);
-	total += parseInt(document.getElementById('min').textContent);
-	total += parseInt(document.getElementById('sec').textContent);
-
-	if (total > 0) {
-		var timer_counter = setTimeout(recalc, 1000);
-	}
-	else {
-		document.getElementById('day').textContent = 0;
-		document.getElementById('hour').textContent = 0;
-		document.getElementById('min').textContent = 0;
-		document.getElementById('sec').textContent = 0;
-
-		document.getElementById('result').textContent = 'Fin.';
-
-		clearTimeout(timer_counter);
-	}
-}
-recalc();
-</script>
+    $('#btnLike').click(function () {
+        $(this).text(++like);
+    });
+    
+    $('#btnDisLike').click(function () {
+        $(this).text(++dislike);
+    });
+            
+</script >
 
 {% endblock %}

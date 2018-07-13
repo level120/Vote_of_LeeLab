@@ -1,0 +1,15 @@
+﻿{% extends "VoteApp/layout.html" %}
+{% block content %}
+<div id="content">
+    <div class="container">
+        <div class="page-content">
+            <div class="error-page">
+                <h1>403</h1>
+                <h3>Forbidden</h3>
+                <p>Access to this resource on the server is denied.</p>
+                <div class="text-center"><a href="{% url 'index' %}" class="btn-system btn-small">홈으로 돌아가기</a></div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,15 @@
+﻿{% extends "VoteApp/layout.html" %}
+{% block content %}
+<div id="content">
+    <div class="container">
+        <div class="page-content">
+            <div class="error-page">
+                <h1>500</h1>
+                <h3>Oops, something sent wrong.</h3>
+                <p>Try to refresh this page or feel free to contact us if the problem persists.</p>
+                <div class="text-center"><a href="{% url 'index' %}" class="btn-system btn-small">홈으로 돌아가기</a></div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
