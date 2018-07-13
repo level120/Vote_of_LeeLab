@@ -1,17 +1,18 @@
 from django.shortcuts import render, render_to_response, redirect
 from django.template import RequestContext
+from django.utils import timezone
 import datetime, time, locale
 
 # Create your views here.
 
 # CountDown
 locale.setlocale(locale.LC_CTYPE, 'korean')
-COUNTDOWN_TARGET_DATE = datetime.datetime(2018, 8, 24, 00, 00, 00, 000000)
+COUNTDOWN_TARGET_DATE = timezone.make_aware(datetime.datetime(2018, 8, 24, 00, 00, 00, 000000))
 DURIONG_DATE = datetime.timedelta(days=6, seconds=86399)
 
 def index(request):
-    if COUNTDOWN_TARGET_DATE > datetime.datetime.now():
-        td = COUNTDOWN_TARGET_DATE - datetime.datetime.now()
+    if COUNTDOWN_TARGET_DATE > timezone.localtime():
+        td = COUNTDOWN_TARGET_DATE - timezone.localtime()
         send_data = (td.days * 86400) + td.seconds
         return render(
             request,
@@ -28,8 +29,8 @@ def index(request):
                'server_time' : send_data
            }
         )
-    elif (COUNTDOWN_TARGET_DATE + DURIONG_DATE) > datetime.datetime.now():
-        td = (COUNTDOWN_TARGET_DATE + DURIONG_DATE) - datetime.datetime.now()
+    elif (COUNTDOWN_TARGET_DATE + DURIONG_DATE) > timezone.localtime():
+        td = (COUNTDOWN_TARGET_DATE + DURIONG_DATE) - timezone.localtime()
         send_data = (td.days * 86400) + td.seconds
         return render(
             request,
