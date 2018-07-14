@@ -3,11 +3,26 @@ from django.template import RequestContext
 from django.utils import timezone
 import datetime, time, locale
 
+# Like and Dislike
+# https://wayhome25.github.io/django/2017/03/01/django-99-my-first-project-4/
+#try:
+#    from django.utils import simplejson as json
+#except ImportError:
+#    import json
+#from django.contrib.auth.models import User
+#from django.contrib.auth.decorators import login_required
+#from django.views.decorators.http import require_POST
+
+# Registrator of user
+from .forms import BootstrapAuthenticationForm
+from django.contrib.auth.models import User
+from django.contrib.auth import login
+
 # Create your views here.
 
 # CountDown
 locale.setlocale(locale.LC_CTYPE, 'korean')
-COUNTDOWN_TARGET_DATE = timezone.make_aware(datetime.datetime(2018, 8, 24, 00, 00, 00, 000000))
+COUNTDOWN_TARGET_DATE = timezone.make_aware(datetime.datetime(2018, 7, 16, 14, 00, 00, 000000))
 DURIONG_DATE = datetime.timedelta(days=6, seconds=86399)
 
 def index(request):
@@ -75,6 +90,17 @@ def about(request):
             'content' : "테스트 페이지"
         }
     )
+
+def signup(request):
+    if request.method == "POST":
+        form = BootstrapAuthenticationForm(request.POST)
+        if form.is_valid():
+            new_user = User.objects.create_user(**form.cleaned_data)
+            login(request, new_user)
+            return redirect('index')
+    else:
+        form = BootstrapAuthenticationForm()
+        return render(request, 'VoteApp/signup.html', {'form': form})
 
 
 def handler400(request, exception, template_name='VoteApp/400.html'):

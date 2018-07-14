@@ -43,6 +43,7 @@
     <Compile Include="manage.py" />
     <Compile Include="VoteApp\admin.py" />
     <Compile Include="VoteApp\apps.py" />
+    <Compile Include="VoteApp\forms.py" />
     <Compile Include="VoteApp\migrations\__init__.py" />
     <Compile Include="VoteApp\models.py" />
     <Compile Include="VoteApp\tests.py" />
@@ -80,6 +81,7 @@
     <Folder Include="Vote_of_LeeLab\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="envs.json" />
     <Content Include="requirements.txt" />
     <Content Include="db.sqlite3" />
     <Content Include="app\static\app\content\bootstrap.css" />
@@ -165,6 +167,11 @@
     <Content Include="VoteApp\static\js\jquery.textillate.js" />
     <Content Include="VoteApp\static\js\jquery.themepunch.revolution.min.js" />
     <Content Include="VoteApp\static\js\jquery.themepunch.tools.min.js" />
+    <None Include="VoteApp\static\js\jquery.validate-vsdoc.js" />
+    <Content Include="VoteApp\static\js\jquery.validate.js" />
+    <Content Include="VoteApp\static\js\jquery.validate.min.js" />
+    <Content Include="VoteApp\static\js\jquery.validate.unobtrusive.js" />
+    <Content Include="VoteApp\static\js\jquery.validate.unobtrusive.min.js" />
     <Content Include="VoteApp\static\js\mediaelement-and-player.js" />
     <Content Include="VoteApp\static\js\modernizrr.js" />
     <Content Include="VoteApp\static\js\nivo-lightbox.js" />
@@ -180,8 +187,12 @@
     <Content Include="VoteApp\templates\VoteApp\404.html" />
     <Content Include="VoteApp\templates\VoteApp\403.html" />
     <Content Include="VoteApp\templates\VoteApp\400.html" />
+    <Content Include="VoteApp\templates\VoteApp\countdown.html" />
     <Content Include="VoteApp\templates\VoteApp\index.html" />
     <Content Include="VoteApp\templates\VoteApp\layout.html" />
+    <Content Include="VoteApp\templates\VoteApp\signup.html" />
+    <Content Include="VoteApp\templates\VoteApp\login.html" />
+    <Content Include="VoteApp\templates\VoteApp\loginpartial.html" />
   </ItemGroup>
   <ItemGroup>
     <None Include="readme.html">

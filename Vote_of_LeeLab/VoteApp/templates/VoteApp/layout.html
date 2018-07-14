@@ -60,16 +60,24 @@
                     <div class="navbar-header">
                         <!-- Stat Toggle Nav Link For Mobiles -->
                         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-              <i class="fa fa-bars"></i>
-            </button>
+                            <i class="fa fa-bars"></i>
+                        </button>
                         <!-- End Toggle Nav Link For Mobiles -->
                         <a class="navbar-brand" href="{% url 'index' %}"><img alt="" src="{% static 'img/logo2.png' %}"></a>
                     </div>
                     <div class="navbar-collapse collapse">
                         <!-- Start Navigation List -->
                         <ul class="nav navbar-nav navbar-right">
+                            {% if user.is_authenticated %}
+                            <li><a>{{ user.username }} 님 로그인</a></li>
+                            {% endif %}
                             <li><a href="{% url 'index' %}">Home</a></li>
                             <li><a href="{% url 'about' %}">About</a></li>
+                            {% if user.is_authenticated %}
+                            <li><a href="{% url 'logout' %}">Logout</a></li>
+                            {% else %}
+                            <li><a href="{% url 'login' %}">Login</a></li>
+                            {% endif %}
                         </ul>
                         <!-- End Navigation List -->
                     </div>
@@ -77,8 +85,16 @@
 
                 <!-- Mobile Menu Start -->
                 <ul class="wpb-mobile-menu">
+                    {% if user.is_authenticated %}
+                    <li><a>{{ user.username }} 님 로그인</a></li>
+                    {% endif %}
                     <li><a href="{% url 'index' %}">Home</a></li>
                     <li><a href="{% url 'about' %}">About</a></li>
+                    {% if user.is_authenticated %}
+                    <li><a href="{% url 'logout' %}">Logout</a></li>
+                    {% else %}
+                    <li><a href="{% url 'login' %}">Login</a></li>
+                    {% endif %}
                 </ul>
                 <!-- Mobile Menu End -->
 

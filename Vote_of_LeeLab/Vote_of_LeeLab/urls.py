@@ -12,9 +12,9 @@ import app.views
 import VoteApp.views
 
 # Uncomment the next lines to enable the admin:
-# from django.conf.urls import include
-# from django.contrib import admin
-# admin.autodiscover()
+from django.conf.urls import include
+from django.contrib import admin
+admin.autodiscover()
 
 handler400 = 'VoteApp.views.handler400'
 handler403 = 'VoteApp.views.handler403'
@@ -23,15 +23,13 @@ handler500 = 'VoteApp.views.handler500'
 
 urlpatterns = [
     # Examples:
-    #url(r'^$', app.views.home, name='home'),
     url(r'^$', VoteApp.views.index, name='index'),
-    url(r'^contact$', app.views.contact, name='contact'),
-    #url(r'^about', app.views.about, name='about'),
-    url(r'^about', VoteApp.views.about, name='about'),
+    url(r'^about$', VoteApp.views.about, name='about'),
+    url(r'^signup$', VoteApp.views.signup, name='signup'),
     url(r'^login/$',
         django.contrib.auth.views.login,
         {
-            'template_name': 'app/login.html',
+            'template_name': 'VoteApp/login.html',
             'authentication_form': app.forms.BootstrapAuthenticationForm,
             'extra_context':
             {
@@ -54,5 +52,8 @@ urlpatterns = [
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
     # Uncomment the next line to enable the admin:
-    # url(r'^admin/', include(admin.site.urls)),
+     url(r'^admin/', include(admin.site.urls)),
+
+     # Social Login
+     url('', include('social_django.urls', namespace='social')),
 ]

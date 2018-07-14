@@ -40,8 +40,16 @@ body {
 	font-weight: 300;
 	color: #666;
 	overflow-x: hidden;
+    height: 100%;
+    margin: 0;
 	/*background: url(../img/patterns/1.png) fixed repeat;*/
 }
+
+section {
+    min-height: 100%;
+    padding-bottom: 200px;
+}
+
 strong, b {
 	font-weight: 600;
 }
@@ -283,6 +291,7 @@ input[type="submit"] {
 
 #container {
     background-color: #fff;
+    height: 100%;
 }
 .bg-color1{
 	background: #F2F2F2;
@@ -4209,10 +4218,12 @@ ul.post-meta li, ul.post-meta li a {
 
 footer {
     width: 100%;
+    height: 200px;
     position: absolute;
-    bottom: 0;
+    /*bottom: 0;*/
 	background-color: #222;
 /*    padding-top: 60px;*/
+    margin-top: -200px;
     padding-top: 20px;
 	border-top: 4px solid #555;
 	color: #ccc;
@@ -4329,7 +4340,7 @@ footer a:hover {
 }
 
 .contact-widget {
-	background: url(../images/map.png) center bottom no-repeat;
+	/*background: url(../images/map.png) center bottom no-repeat;*/
 }
 
 .contact-widget span {
