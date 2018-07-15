@@ -93,6 +93,16 @@ def about(request):
         }
     )
 
+
+def capstone(request):
+    return render(
+        request,
+        "VoteApp/capstone_design.html",
+        {
+            'title' : "개인정보처리방침",
+        }
+     )
+
 def signup(request):
     if request.method == "POST":
         form = BootstrapAuthenticationForm(request.POST)
