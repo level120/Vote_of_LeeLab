@@ -21,7 +21,9 @@ from django.contrib.auth import login
 # Create your views here.
 
 # CountDown
+# 개발용 locale 설정, 배포시 반드시 주석처리 할 것.
 #locale.setlocale(locale.LC_CTYPE, 'korean')
+
 COUNTDOWN_TARGET_DATE = timezone.make_aware(datetime.datetime(2018, 7, 16, 14, 00, 00, 000000))
 DURIONG_DATE = datetime.timedelta(days=6, seconds=86399)
 
