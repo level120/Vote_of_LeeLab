@@ -36,7 +36,10 @@
                     </div>
                 </form>
                 <a href="{% url "social:begin" "google-oauth2" %}"><button class="btn btn-danger" style="width: 40%">Google 로그인</button></a>
-                <a href="{% url "social:begin" "facebook" %}?next={{ request.path }}"><button class="btn btn-primary" style="width: 40%">Facebook 로그인</button></a>
+                <a href="{% url "social:begin" "facebook" %}"><button class="btn btn-primary" style="width: 40%">Facebook 로그인</button></a>
+                <!-- Development only
+                    <a href="{% url "social:begin" "facebook" %}?next={{ request.path }}"><button class="btn btn-primary" style="width: 40%">Facebook 로그인</button></a>
+                 -->
             </section>
         </div>
         <div class="col-md-3"></div>
