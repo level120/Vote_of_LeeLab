@@ -58,11 +58,12 @@ else: # JSON env
 
 # it needs SSL, https://certbot.eff.org/lets-encrypt/ubuntuxenial-apache
 # SocialLogin: Facebook
+SOCIAL_AUTH_FACEBOOK_API_VERSION = '2.10'
 SOCIAL_AUTH_FACEBOOK_KEY = FACEBOOK_KEY
 SOCIAL_AUTH_FACEBOOK_SECRET = FACEBOOK_SECRET
 SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
 SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
-  'fields': 'id, name, email'
+  'fields': 'id, name, email, age_range'
 }
 
 # SocialLogin: Google
