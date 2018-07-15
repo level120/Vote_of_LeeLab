@@ -56,6 +56,7 @@ else: # JSON env
     GOOGLE_SECRET = get_env('GOOGLE_SECRET', envs)
 
 
+# it needs SSL, https://certbot.eff.org/lets-encrypt/ubuntuxenial-apache
 # SocialLogin: Facebook
 SOCIAL_AUTH_FACEBOOK_KEY = FACEBOOK_KEY
 SOCIAL_AUTH_FACEBOOK_SECRET = FACEBOOK_SECRET
@@ -67,7 +68,10 @@ SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
 # SocialLogin: Google
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = GOOGLE_KEY
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = GOOGLE_SECRET
-SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = ['name']
+#SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = ['name']
+
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'index'
 
 
 # Quick-start development settings - unsuitable for production
@@ -162,8 +166,12 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 AUTHENTICATION_BACKENDS = (
-    'social_core.backends.google.GoogleOAuth2',
-    'social_core.backends.facebook.FacebookOAuth2',
+    'social_core.backends.open_id.OpenIdAuth',  # for Google authentication
+    'social_core.backends.google.GoogleOpenId',  # for Google authentication
+    'social_core.backends.google.GoogleOAuth2',  # for Google authentication
+    'social_core.backends.github.GithubOAuth2',  # for Github authentication
+    'social_core.backends.facebook.FacebookOAuth2',  # for Facebook authentication
+    
     'django.contrib.auth.backends.ModelBackend',
 )
 
