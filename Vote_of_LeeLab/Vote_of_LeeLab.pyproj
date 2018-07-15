@@ -113,6 +113,7 @@
     <Content Include="app\templates\app\layout.html" />
     <Content Include="app\templates\app\login.html" />
     <Content Include="app\templates\app\loginpartial.html" />
+    <Content Include="run.sh" />
     <Content Include="VoteApp\static\asset\css\bootstrap.min.css" />
     <Content Include="VoteApp\static\asset\js\bootstrap.min.js" />
     <Content Include="VoteApp\static\css\animate.css" />
