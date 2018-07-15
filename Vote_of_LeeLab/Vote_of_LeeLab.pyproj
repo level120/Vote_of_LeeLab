@@ -189,6 +189,7 @@
     <Content Include="VoteApp\templates\VoteApp\404.html" />
     <Content Include="VoteApp\templates\VoteApp\403.html" />
     <Content Include="VoteApp\templates\VoteApp\400.html" />
+    <Content Include="VoteApp\templates\VoteApp\capstone_design.html" />
     <Content Include="VoteApp\templates\VoteApp\countdown.html" />
     <Content Include="VoteApp\templates\VoteApp\index.html" />
     <Content Include="VoteApp\templates\VoteApp\layout.html" />
