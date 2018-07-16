@@ -75,6 +75,7 @@
     {% if user.is_authenticated %}
     $('.like').click(function() {
         var pk = $(this).attr('name');
+    console.log(pk);
         $.ajax({
             type: "POST",
             url: "{% url 'like' %}",
@@ -94,6 +95,7 @@
 
     $('.dislike').click(function() {
         var pk = $(this).attr('name');
+    console.log(pk);
         $.ajax({
             type: "POST",
             url: "{% url 'dislike' %}",

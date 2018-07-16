@@ -155,14 +155,14 @@ def like(request):
         name_id = request.POST.get('pk', None)
         obj = Like.objects.get(int(pk = name_id))
 
-        if obj.likes.filter(int(pk = name_id)).exists():
+        if obj.likes.filter(pk = name_id).exists():
             obj.likes.remove(user)
             message = '좋아요! '
         else:
             obj.likes.add(user)
             message = '좋아요 취소 '
 
-    context = {'likes_count' : Like.total_likes, 'message' : message}
+    context = [{'likes_count' : Like.total_likes, 'message' : message}]
     return HttpResponse(json.dumps(context), content_type='application/json')
 
 
@@ -172,7 +172,7 @@ def dislike(request):
     if request.method == 'POST':
         user = request.user
         name_id = request.POST.get('pk', None)
-        obj = DisLike.objects.get(int(pk = name_id))
+        obj = DisLike.objects.get(pk = name_id)
 
         if obj.dislikes.filter(id = user.id).exists():
             obj.dislikes.remove(user)
@@ -181,12 +181,12 @@ def dislike(request):
             obj.dislikes.add(user)
             message = '싫어요 취소 '
 
-    context = {'disLikes_count' : DisLike.total_disLikes, 'message' : message}
+    context = [{'disLikes_count' : DisLike.total_disLikes, 'message' : message}]
     return HttpResponse(json.dumps(context), content_type='application/json')
 
 
 def like_anonymous(request):
-    context = {'likes_count' : Like.total_likes, 'disLikes_count' : DisLike.total_disLikes}
+    context = [{'likes_count' : Like.total_likes, 'disLikes_count' : DisLike.total_disLikes}]
     return HttpResponse(json.dumps(context), content_type='application/json')
 
 
