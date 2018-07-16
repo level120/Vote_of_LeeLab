@@ -39,8 +39,8 @@
             data: "",
             dataType: "json",
             success: function(response) {
-                $(btnLike).text(' 좋아요! ' + response.likes_count);
-                $(btnDisLike).text(' 싫어요! ' + response.disLikes_count);
+                $('#btnLike').text(' 좋아요! ' + response.likes_count);
+                $('#btnDisLike').text(' 싫어요! ' + response.disLikes_count);
             },
             error: function(request, status, error) {
                 alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
@@ -83,7 +83,7 @@
             },
             dataType: "json",
             success: function(response) {
-                $(this).text(' ' + response.message + ' ' + response.likes_count);
+                $('.like').text(' ' + response.message + ' ' + response.likes_count);
             },
             error: function(request, status, error) {
                 alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
@@ -102,7 +102,7 @@
             },
             dataType: "json",
             success: function(response) {
-                $(this).text(' ' + response.message + ' ' + response.disLikes_count);
+                $('dislike').text(' ' + response.message + ' ' + response.disLikes_count);
             },
             error: function(request, status, error) {
                 alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
