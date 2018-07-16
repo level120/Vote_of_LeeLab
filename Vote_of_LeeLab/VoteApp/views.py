@@ -13,6 +13,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
 from .models import Like
+from .models import DisLike
 
 # Registrator of user
 from .forms import BootstrapAuthenticationForm
@@ -170,7 +171,7 @@ def dislike(request):
     if request.method == 'POST':
         user = request.user
         name_id = request.POST.get('pk', None)
-        obj = Like.objects.get(pk = name_id)
+        obj = DisLike.objects.get(pk = name_id)
 
         if obj.disLikes.filter(id = user.id).exists():
             obj.disLikes.remove(user)
@@ -179,12 +180,12 @@ def dislike(request):
             obj.disLikes.add(user)
             message = '싫어요 취소 '
 
-    context = {'disLikes_count' : Like.total_disLikes, 'message' : message}
+    context = {'disLikes_count' : DisLike.total_disLikes, 'message' : message}
     return HttpResponse(json.dumps(context), content_type='application/json')
 
 
 def like_anonymous(request):
-    context = {'likes_count' : Like.total_likes, 'disLikes_count' : Like.total_disLikes}
+    context = {'likes_count' : Like.total_likes, 'disLikes_count' : DisLike.total_disLikes}
     return HttpResponse(json.dumps(context), content_type='application/json')
 
 

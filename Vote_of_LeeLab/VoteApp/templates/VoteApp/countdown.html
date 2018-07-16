@@ -35,6 +35,9 @@
         $.ajax({
             type: "POST",
             url: "{% url 'like_anonymous' %}",
+            data: {
+                'csrfmiddlewaretoken': '{{ csrf_token }}'
+            },
             dataType: "json",
             success: function(response) {
                 $('#btnLike').text(' 좋아요! ' + response.likes_count);
