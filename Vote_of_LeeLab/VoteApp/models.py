@@ -14,7 +14,7 @@ class Like(models.Model):
 
 class DisLike(models.Model):
     name_id = models.ForeignKey(User, on_delete = models.CASCADE)
-    disLikes = models.ManyToManyField(User, related_name='disLikes')
+    dislikes = models.ManyToManyField(User, related_name='dislikes')
     
     @property
     def total_disLikes(self):

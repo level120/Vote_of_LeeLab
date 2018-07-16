@@ -12,6 +12,7 @@ except ImportError:
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
+from django.http import HttpResponse
 from .models import Like
 from .models import DisLike
 
@@ -152,9 +153,9 @@ def like(request):
     if request.method == 'POST':
         user = request.user
         name_id = request.POST.get('pk', None)
-        obj = Like.objects.get(pk = name_id)
+        obj = Like.objects.get(int(pk = name_id))
 
-        if obj.likes.filter(id = user.id).exists():
+        if obj.likes.filter(int(pk = name_id)).exists():
             obj.likes.remove(user)
             message = '좋아요! '
         else:
@@ -171,13 +172,13 @@ def dislike(request):
     if request.method == 'POST':
         user = request.user
         name_id = request.POST.get('pk', None)
-        obj = DisLike.objects.get(pk = name_id)
+        obj = DisLike.objects.get(int(pk = name_id))
 
-        if obj.disLikes.filter(id = user.id).exists():
-            obj.disLikes.remove(user)
+        if obj.dislikes.filter(id = user.id).exists():
+            obj.dislikes.remove(user)
             message = '싫어요! '
         else:
-            obj.disLikes.add(user)
+            obj.dislikes.add(user)
             message = '싫어요 취소 '
 
     context = {'disLikes_count' : DisLike.total_disLikes, 'message' : message}
