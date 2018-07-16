@@ -31,7 +31,7 @@ urlpatterns = [
         django.contrib.auth.views.login,
         {
             'template_name': 'VoteApp/login.html',
-            'authentication_form': app.forms.BootstrapAuthenticationForm,
+            'authentication_form': VoteApp.forms.BootstrapAuthenticationForm,
             'extra_context':
             {
                 'title': 'Log in',
@@ -53,8 +53,11 @@ urlpatterns = [
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
     # Uncomment the next line to enable the admin:
-     url(r'^admin/', include(admin.site.urls)),
+     url(r'^admin/', admin.site.urls),
 
      # Social Login
      url('', include('social_django.urls', namespace='social')),
+
+     # Like & Dislike
+     url(r'^like/$', VoteApp.views.like, name='like'),
 ]

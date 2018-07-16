@@ -106,6 +106,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'VoteApp',
     'social_django',
+    #'notifications',
 ]
 
 MIDDLEWARE_CLASSES = [
