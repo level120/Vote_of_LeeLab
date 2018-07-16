@@ -15,8 +15,8 @@
         
         <div style="text-align:center;">
         {% if user.is_authenticated %}
-            <button type="button" id="btnLike" name="{{ Like.id }}" class="like btn btn-success glyphicon glyphicon-thumbs-up"> -</button>
-            <button type="button" id="btnDisLike" name="{{ Like.id }}" class="dislike btn btn-success glyphicon glyphicon-thumbs-down"> -</button>
+            <button type="button" id="btnLike" name="{{ like.id }}" class="like btn btn-success glyphicon glyphicon-thumbs-up"> -</button>
+            <button type="button" id="btnDisLike" name="{{ dislike.id }}" class="dislike btn btn-success glyphicon glyphicon-thumbs-down"> -</button>
         {% else %}
             <div class="alert alert-warning" role="alert">
                 로그인 후 <strong>좋아요!</strong> 혹은 <strong>싫어요!</strong> 버튼이 활성화 됩니다.

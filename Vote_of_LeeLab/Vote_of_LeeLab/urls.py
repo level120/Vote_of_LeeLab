@@ -59,7 +59,7 @@ urlpatterns = [
      url('', include('social_django.urls', namespace='social')),
 
      # Like & Dislike
-     url(r'^like$', VoteApp.views.like, name='like'),
-     url(r'^dislike$', VoteApp.views.dislike, name='dislike'),
-     url(r'^like_anonymous$', VoteApp.views.like_anonymous, name='like_anonymous'),
+     url(r'^like/$', VoteApp.views.like, name='like'),
+     url(r'^dislike/$', VoteApp.views.dislike, name='dislike'),
+     url(r'^like_anonymous/$', VoteApp.views.like_anonymous, name='like_anonymous'),
 ]
