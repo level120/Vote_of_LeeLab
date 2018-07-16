@@ -15,12 +15,14 @@
         
         <div style="text-align:center;">
         {% if user.is_authenticated %}
-            <button type="button" name="{{ Like.id }}" class="like btn btn-success glyphicon glyphicon-thumbs-up"> 0</button>
-            <button type="button" name="{{ Like.id }}" class="like btn btn-success glyphicon glyphicon-thumbs-down"> 0</button>
+            <button type="button" name="{{ Like.id }}" class="like btn btn-success glyphicon glyphicon-thumbs-up"> -</button>
+            <button type="button" name="{{ Like.id }}" class="dislike btn btn-success glyphicon glyphicon-thumbs-down"> -</button>
         {% else %}
             <div class="alert alert-warning" role="alert">
-                로그인 후 <strong>좋아요!</strong> 혹은 <strong>싫어요!</strong> 버튼이 나타납니다.
+                로그인 후 <strong>좋아요!</strong> 혹은 <strong>싫어요!</strong> 버튼이 활성화 됩니다.
             </div>
+            <button type="button" id="btnLike" class="like btn btn-success glyphicon glyphicon-thumbs-up disabled"> -</button>
+            <button type="button" id="btnDisLike" class="dislike btn btn-success glyphicon glyphicon-thumbs-down disabled"> -</button>
         {% endif %}
         </div>
 
@@ -30,6 +32,20 @@
 <script type="text/javascript">
     $(document).ready(function () {
         var dday = {{ server_time }};
+        var pk = $(this).attr('name')
+        $.ajax({
+            type: "POST",
+            url: "{% url 'like_anonymous' %}",
+            data: "",
+            dataType: "json",
+            success: function(response) {
+                $(btnLike).text(' 좋아요! ' + response.likes_count);
+                $(btnDisLike).text(' 싫어요! ' + response.disLikes_count);
+            },
+            error: function(request, status, error) {
+                alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
+            }
+        });
 
         if (dday > 0) {
             var timer = setInterval(function () {
@@ -67,7 +83,26 @@
             },
             dataType: "json",
             success: function(response) {
-                $(this).text(' ' + response.message + ' '  response.likes_count);
+                $(this).text(' ' + response.message + ' ' + response.likes_count);
+            },
+            error: function(request, status, error) {
+                alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
+            }
+        });
+    })
+
+    $('.dislike').click(function() {
+        var pk = $(this).attr('name')
+        $.ajax({
+            type: "POST",
+            url: "{% url 'dislike' %}",
+            data: {
+                'pk': pk,
+                'csrfmiddlewaretoken': '{{ csrf_token }}'
+            },
+            dataType: "json",
+            success: function(response) {
+                $(this).text(' ' + response.message + ' ' + response.disLikes_count);
             },
             error: function(request, status, error) {
                 alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);

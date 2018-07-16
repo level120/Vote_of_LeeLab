@@ -53,11 +53,13 @@ urlpatterns = [
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
     # Uncomment the next line to enable the admin:
-     url(r'^admin/', admin.site.urls),
+     url(r'^admin$', admin.site.urls),
 
      # Social Login
      url('', include('social_django.urls', namespace='social')),
 
      # Like & Dislike
-     url(r'^like/$', VoteApp.views.like, name='like'),
+     url(r'^like$', VoteApp.views.like, name='like'),
+     url(r'^dislike$', VoteApp.views.dislike, name='dislike'),
+     url(r'^like_anonymous$', VoteApp.views.like_anonymous, name='like_anonymous'),
 ]
