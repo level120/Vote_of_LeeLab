@@ -25,10 +25,11 @@ if path not in sys.path:
 # This application object is used by any WSGI server configured to use this
 # file. This includes Django's development server, if the WSGI_APPLICATION
 # setting points here.
-from django.core.wsgi import get_wsgi_application
+from django.core.wsgi import get_wsgi_application, WSGIHandler
 
 # Apply WSGI middleware here.
 # from helloworld.wsgi import HelloWorldApplication
 # application = HelloWorldApplication(application)
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "Vote_of_LeeLab.settings")
 application = get_wsgi_application()
+application = WSGIHandler()
