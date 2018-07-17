@@ -37,6 +37,9 @@ def index(request):
     "elif" is after start time and before end time
     "else" is after end time
     '''
+    plike = get_object_or_404(Like)
+    pdislike = get_object_or_404(DisLike)
+
     if COUNTDOWN_TARGET_DATE > timezone.localtime():
         td = COUNTDOWN_TARGET_DATE - timezone.localtime()
         send_data = (td.days * 86400) + td.seconds
@@ -44,18 +47,20 @@ def index(request):
             request,
             "VoteApp/index.html",
            {
-               'active_home' : "active",
+               'active_home' : "active", # begin common
                'title' : "투표까지 남은시간",
                'url' : "https://chenny.ml/",
                'description' : "LEE LAB 투표 예정일",
                'sitename' : "Lee Lab Server",
                'locale' : "ko_KR",
-               'type' : "article",
+               'type' : "article", # end common
+               'noti_title' : "[시작 알림!!]", # begin noti
+               'noti_context' : "투표가 시작되었습니다! 투표를 시작하세요!",
+               'noti_img' : "https://chenny.ml/static/img/logo2.png", # end noti
                'date_of_begin_time' : "투표 예정일 : " + COUNTDOWN_TARGET_DATE.strftime('%Y년 %m월 %d일 - %H시 %M분 %S초'),
                'server_time' : send_data,
-               'noti_title' : "[시작 알림!!]",
-               'noti_context' : "투표가 시작되었습니다! 투표를 시작하세요!",
-               'noti_img' : "https://chenny.ml/static/img/logo2.png"
+               'like' : plike,
+               'dislike' : pdislike
            }
         )
     elif (COUNTDOWN_TARGET_DATE + DURIONG_DATE) > timezone.localtime():
@@ -65,18 +70,20 @@ def index(request):
             request,
             "VoteApp/index.html",
            {
-               'active_home' : "active",
+               'active_home' : "active", # begin common
                'title' : "투표 종료까지 남은시간!",
                'url' : "https://chenny.ml/",
                'description' : "LEE LAB 투표 진행중!",
                'sitename' : "Lee Lab Server",
                'locale' : "ko_KR",
-               'type' : "article",
+               'type' : "article", # end common
+               'noti_title' : "[종료 알림!!]", # begin noti
+               'noti_context' : "투표가 종료되었습니다! 결과를 확인하세요!",
+               'noti_img' : "https://chenny.ml/static/img/logo2.png", # end noti
                'date_of_begin_time' : "투표 종료일 : " + (COUNTDOWN_TARGET_DATE + DURIONG_DATE).strftime('%Y년 %m월 %d일 - %H시 %M분 %S초'),
                'server_time': send_data,
-               'noti_title' : "[종료 알림!!]",
-               'noti_context' : "투표가 종료되었습니다! 결과를 확인하세요!",
-               'noti_img' : "https://chenny.ml/static/img/logo2.png"
+               'like' : plike,
+               'dislike' : pdislike
             }
         )
     else:
@@ -84,15 +91,17 @@ def index(request):
             request,
             "VoteApp/index.html",
            {
-               'active_home' : "active",
+               'active_home' : "active", # begin common
                'title' : "투표 종료",
                'url' : "https://chenny.ml/",
                'description' : "LEE LAB 투표 결과",
                'sitename' : "Lee Lab Server",
                'locale' : "ko_KR",
-               'type' : "article",
+               'type' : "article", # end common
                'date_of_begin_time' : "투표 종료일 : " + (COUNTDOWN_TARGET_DATE + DURIONG_DATE).strftime('%Y년 %m월 %d일 - %H시 %M분 %S초'),
-                'server_time': 0
+               'server_time': 0,
+               'like' : plike,
+               'dislike' : pdislike
             }
         )
 

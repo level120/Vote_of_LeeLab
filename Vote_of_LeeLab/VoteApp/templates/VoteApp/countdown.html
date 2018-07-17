@@ -14,8 +14,8 @@
         </div>
         
         <div style="text-align:center; padding-bottom:25px;">
-            <button type="button" name="{{ like.id }}" class="like btn btn-success glyphicon glyphicon-thumbs-up {% if not user.is_authenticated %}disabled{% endif %}"> -</button>
-            <button type="button" name="{{ dislike.id }}" class="dislike btn btn-success glyphicon glyphicon-thumbs-down {% if not user.is_authenticated %}disabled{% endif %}"> -</button>
+            <button type="button" id="btnLike" name="{{ like.id }}" class="like btn btn-success glyphicon glyphicon-thumbs-up {% if not user.is_authenticated %}disabled{% endif %}"> -</button>
+            <button type="button" id="btnDisLike" name="{{ dislike.id }}" class="dislike btn btn-success glyphicon glyphicon-thumbs-down {% if not user.is_authenticated %}disabled{% endif %}"> -</button>
         </div>
 
         {% if not user.is_authenticated %}
