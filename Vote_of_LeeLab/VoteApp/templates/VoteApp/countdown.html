@@ -12,16 +12,21 @@
         <div class="alert alert-success" role="alert">
             <h4 style="text-align:center;" class="alert-heading">남은 시간 : <span style="margin-left:15px" id="day">--</span>일<span style="margin-left:15px" id="hour">--</span>시<span style="margin-left:15px" id="min">--</span>분<span style="margin-left:15px" id="sec">--</span>초</h4>
         </div>
-        
+        {#{% for like in likes %}#}
         <div style="text-align:center; padding-bottom:25px;">
-            <button type="button" id="btnLike" name="{{ like.id }}" class="like btn btn-success glyphicon glyphicon-thumbs-up {% if not user.is_authenticated %}disabled{% endif %}"> -</button>
-            <button type="button" id="btnDisLike" name="{{ dislike.id }}" class="dislike btn btn-success glyphicon glyphicon-thumbs-down {% if not user.is_authenticated %}disabled{% endif %}"> -</button>
+            {% if user.is_authenticated %}
+            <button type="button" id="{{ likes }}" class="like btn btn-success glyphicon glyphicon-thumbs-up"> -</button>
+            {% else %}
+            <button type="button" id="{{ likes }}" class="like btn btn-success glyphicon glyphicon-thumbs-up disabled"> -</button>
+            {% endif %}
         </div>
-
+        {#{% endfor %}#}
         {% if not user.is_authenticated %}
-        <div class="alert alert-warning" role="alert">
+        <div class="col-md-3"></div>
+        <div class="alert alert-warning col-md-6" role="alert">
             <p style="text-align:center;">로그인 후 <strong>좋아요!</strong> 혹은 <strong>싫어요!</strong> 버튼이 활성화 됩니다.</p>
         </div>
+        <div class="col-md-3"></div>
         {% endif %}
 
     </div>
@@ -30,21 +35,40 @@
 <script type="text/javascript">
     $(document).ready(function () {
         var dday = {{ server_time }};
+        var pk = {{ likes }};
+        {% if user.is_authenticated %}
         $.ajax({
             type: "POST",
-            url: "{% url 'like_anonymous' %}",
+            url: "{% url 'like_ready' %}",
             data: {
+                'pk': pk,
                 'csrfmiddlewaretoken': '{{ csrf_token }}'
             },
             dataType: "json",
             success: function(response) {
-                $('#btnLike').text(' 좋아요! ' + response.likes_count);
-                $('#btnDisLike').text(' 싫어요! ' + response.disLikes_count);
+                $('#'+pk).text(' ' + response.message + ' ' + response.likes_count);
             },
             error: function(request, status, error) {
                 console.log("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
             }
         });
+        {% else %}
+        $.ajax({
+            type: "POST",
+            url: "{% url 'like_anonymous' %}",
+            data: {
+                'pk': pk,
+                'csrfmiddlewaretoken': '{{ csrf_token }}'
+            },
+            dataType: "json",
+            success: function(response) {
+                $('#'+pk).text(' ' + response.message + ' ' + response.likes_count);
+            },
+            error: function(request, status, error) {
+                console.log("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
+            }
+        });
+        {% endif %}
 
         if (dday > 0) {
             var timer = setInterval(function () {
@@ -72,8 +96,7 @@
 
     {% if user.is_authenticated %}
     $('.like').click(function() {
-        var pk = $(this).attr('name');
-    console.log(pk);
+        var pk = $(this).attr('id');
         $.ajax({
             type: "POST",
             url: "{% url 'like' %}",
@@ -83,27 +106,7 @@
             },
             dataType: "json",
             success: function(response) {
-                $(this).text(' ' + response.message + ' ' + response.likes_count);
-            },
-            error: function(request, status, error) {
-                console.log("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
-            }
-        });
-    })
-
-    $('.dislike').click(function() {
-        var pk = $(this).attr('name');
-    console.log(pk);
-        $.ajax({
-            type: "POST",
-            url: "{% url 'dislike' %}",
-            data: {
-                'pk': pk,
-                'csrfmiddlewaretoken': '{{ csrf_token }}'
-            },
-            dataType: "json",
-            success: function(response) {
-                $(this).text(' ' + response.message + ' ' + response.disLikes_count);
+                $('#'+pk).text(' ' + response.message + ' ' + response.likes_count);
             },
             error: function(request, status, error) {
                 console.log("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);

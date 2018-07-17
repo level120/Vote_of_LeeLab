@@ -12,9 +12,10 @@ except ImportError:
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
+from django.db.models import Count
 from django.http import HttpResponse
+from django.core import serializers
 from .models import Like
-from .models import DisLike
 
 # Registrator of user
 from .forms import BootstrapAuthenticationForm
@@ -37,6 +38,10 @@ def index(request):
     "elif" is after start time and before end time
     "else" is after end time
     '''
+    # 좋아요 순서
+    #likes = Like.objects.annotate(like_count=Count('likes')).order_by('-like_count', '-update_date')
+    likes = get_object_or_404(Like, pk=1)
+
     if COUNTDOWN_TARGET_DATE > timezone.localtime():
         td = COUNTDOWN_TARGET_DATE - timezone.localtime()
         send_data = (td.days * 86400) + td.seconds
@@ -56,8 +61,7 @@ def index(request):
                'noti_img' : "https://chenny.ml/static/img/logo2.png", # end noti
                'date_of_begin_time' : "투표 예정일 : " + COUNTDOWN_TARGET_DATE.strftime('%Y년 %m월 %d일 - %H시 %M분 %S초'),
                'server_time' : send_data,
-               'like' : Like,
-               'dislike' : DisLike
+               'likes' : likes.id
            }
         )
     elif (COUNTDOWN_TARGET_DATE + DURIONG_DATE) > timezone.localtime():
@@ -79,8 +83,7 @@ def index(request):
                'noti_img' : "https://chenny.ml/static/img/logo2.png", # end noti
                'date_of_begin_time' : "투표 종료일 : " + (COUNTDOWN_TARGET_DATE + DURIONG_DATE).strftime('%Y년 %m월 %d일 - %H시 %M분 %S초'),
                'server_time': send_data,
-               'like' : Like,
-               'dislike' : DisLike
+               'likes' : likes.id
             }
         )
     else:
@@ -97,8 +100,7 @@ def index(request):
                'type' : "article", # end common
                'date_of_begin_time' : "투표 종료일 : " + (COUNTDOWN_TARGET_DATE + DURIONG_DATE).strftime('%Y년 %m월 %d일 - %H시 %M분 %S초'),
                'server_time': 0,
-               'like' : plike,
-               'dislike' : pdislike
+               'likes' : likes.id
             }
         )
 
@@ -168,32 +170,36 @@ def like(request):
             obj.likes.add(user)
             message = '좋아요 취소 '
 
-    context = {'likes_count' : Like.total_likes, 'message' : message}
-    return HttpResponse(json.dumps(list(context)), content_type='application/json')
+    context = {'likes_count': obj.total_likes, 'message': message}
+    return HttpResponse(json.dumps(context), content_type='application/json')
 
 
 @login_required
 @require_POST
-def dislike(request):
+def like_ready(request):
     if request.method == 'POST':
         user = request.user
         name_id = request.POST.get('pk', None)
-        obj = DisLike.objects.get(pk = name_id)
+        obj = Like.objects.get(pk = name_id)
 
-        if obj.dislikes.filter(id = user.id).exists():
-            obj.dislikes.remove(user)
-            message = '싫어요! '
+        if obj.likes.filter(pk = name_id).exists():
+            message = '좋아요 취소 '
         else:
-            obj.dislikes.add(user)
-            message = '싫어요 취소 '
+            message = '좋아요! '
 
-    context = {'disLikes_count' : DisLike.total_disLikes, 'message' : message}
-    return HttpResponse(json.dumps(list(context)), content_type='application/json')
+    context = {'likes_count': obj.total_likes, 'message': message}
+    return HttpResponse(json.dumps(context), content_type='application/json')
 
 
+@require_POST
 def like_anonymous(request):
-    context = {'likes_count' : Like.total_likes, 'disLikes_count' : DisLike.total_disLikes}
-    return HttpResponse(json.dumps(list(context)), content_type='application/json')
+    if request.method == 'POST':
+        name_id = request.POST.get('pk', None)
+        obj = Like.objects.get(pk = name_id)
+        message = '좋아요! '
+
+    context = {'likes_count': obj.total_likes, 'message': message}
+    return HttpResponse(json.dumps(context), content_type='application/json')
 
 
 # below pages are handler of exception for 400, 403, 404 and 500

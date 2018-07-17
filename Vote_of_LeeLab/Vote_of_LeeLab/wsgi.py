@@ -16,8 +16,8 @@ framework.
 import os
 import sys
 
+# 개발서버 전용, 배포시 해제 필수
 path = os.path.abspath(__file__+'/../..')
-
 if path not in sys.path:
     sys.path.append(path)
 
