@@ -102,3 +102,4 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+Vote_of_LeeLab/VoteApp/migrations/0004_auto_20180717_1411.py

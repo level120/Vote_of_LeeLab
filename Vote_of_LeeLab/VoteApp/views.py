@@ -37,9 +37,6 @@ def index(request):
     "elif" is after start time and before end time
     "else" is after end time
     '''
-    plike = get_object_or_404(Like)
-    pdislike = get_object_or_404(DisLike)
-
     if COUNTDOWN_TARGET_DATE > timezone.localtime():
         td = COUNTDOWN_TARGET_DATE - timezone.localtime()
         send_data = (td.days * 86400) + td.seconds
@@ -59,8 +56,8 @@ def index(request):
                'noti_img' : "https://chenny.ml/static/img/logo2.png", # end noti
                'date_of_begin_time' : "투표 예정일 : " + COUNTDOWN_TARGET_DATE.strftime('%Y년 %m월 %d일 - %H시 %M분 %S초'),
                'server_time' : send_data,
-               'like' : plike,
-               'dislike' : pdislike
+               'like' : Like,
+               'dislike' : DisLike
            }
         )
     elif (COUNTDOWN_TARGET_DATE + DURIONG_DATE) > timezone.localtime():
@@ -82,8 +79,8 @@ def index(request):
                'noti_img' : "https://chenny.ml/static/img/logo2.png", # end noti
                'date_of_begin_time' : "투표 종료일 : " + (COUNTDOWN_TARGET_DATE + DURIONG_DATE).strftime('%Y년 %m월 %d일 - %H시 %M분 %S초'),
                'server_time': send_data,
-               'like' : plike,
-               'dislike' : pdislike
+               'like' : Like,
+               'dislike' : DisLike
             }
         )
     else:
@@ -162,7 +159,7 @@ def like(request):
     if request.method == 'POST':
         user = request.user
         name_id = request.POST.get('pk', None)
-        obj = Like.objects.get(int(pk = name_id))
+        obj = Like.objects.get(pk = name_id)
 
         if obj.likes.filter(pk = name_id).exists():
             obj.likes.remove(user)
@@ -199,7 +196,7 @@ def like_anonymous(request):
     return HttpResponse(json.dumps(list(context)), content_type='application/json')
 
 
-# under pages are handler of exception for 400, 403, 404 and 500
+# below pages are handler of exception for 400, 403, 404 and 500
 def handler400(request, exception, template_name='VoteApp/400.html'):
     return render(request, template_name, status=400)
 
