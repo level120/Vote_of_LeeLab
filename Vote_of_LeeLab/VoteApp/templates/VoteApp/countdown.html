@@ -13,18 +13,16 @@
             <h4 style="text-align:center;" class="alert-heading">남은 시간 : <span style="margin-left:15px" id="day">--</span>일<span style="margin-left:15px" id="hour">--</span>시<span style="margin-left:15px" id="min">--</span>분<span style="margin-left:15px" id="sec">--</span>초</h4>
         </div>
         
-        <div style="text-align:center;">
-        {% if user.is_authenticated %}
-            <button type="button" id="btnLike" name="{{ like.id }}" class="like btn btn-success glyphicon glyphicon-thumbs-up"> -</button>
-            <button type="button" id="btnDisLike" name="{{ dislike.id }}" class="dislike btn btn-success glyphicon glyphicon-thumbs-down"> -</button>
-        {% else %}
-            <div class="alert alert-warning" role="alert">
-                로그인 후 <strong>좋아요!</strong> 혹은 <strong>싫어요!</strong> 버튼이 활성화 됩니다.
-            </div>
-            <button type="button" id="btnLike" class="like btn btn-success glyphicon glyphicon-thumbs-up disabled"> -</button>
-            <button type="button" id="btnDisLike" class="dislike btn btn-success glyphicon glyphicon-thumbs-down disabled"> -</button>
-        {% endif %}
+        <div style="text-align:center; padding-bottom:25px;">
+            <button type="button" name="{{ like.id }}" class="like btn btn-success glyphicon glyphicon-thumbs-up {% if not user.is_authenticated %}disabled{% endif %}"> -</button>
+            <button type="button" name="{{ dislike.id }}" class="dislike btn btn-success glyphicon glyphicon-thumbs-down {% if not user.is_authenticated %}disabled{% endif %}"> -</button>
         </div>
+
+        {% if not user.is_authenticated %}
+        <div class="alert alert-warning" role="alert">
+            <p style="text-align:center;">로그인 후 <strong>좋아요!</strong> 혹은 <strong>싫어요!</strong> 버튼이 활성화 됩니다.</p>
+        </div>
+        {% endif %}
 
     </div>
 </div>

@@ -162,8 +162,8 @@ def like(request):
             obj.likes.add(user)
             message = '좋아요 취소 '
 
-    context = [{'likes_count' : Like.total_likes, 'message' : message}]
-    return HttpResponse(json.dumps(context), content_type='application/json')
+    context = {'likes_count' : Like.total_likes, 'message' : message}
+    return HttpResponse(json.dumps(list(context)), content_type='application/json')
 
 
 @login_required
@@ -181,13 +181,13 @@ def dislike(request):
             obj.dislikes.add(user)
             message = '싫어요 취소 '
 
-    context = [{'disLikes_count' : DisLike.total_disLikes, 'message' : message}]
-    return HttpResponse(json.dumps(context), content_type='application/json')
+    context = {'disLikes_count' : DisLike.total_disLikes, 'message' : message}
+    return HttpResponse(json.dumps(list(context)), content_type='application/json')
 
 
 def like_anonymous(request):
-    context = [{'likes_count' : Like.total_likes, 'disLikes_count' : DisLike.total_disLikes}]
-    return HttpResponse(json.dumps(context), content_type='application/json')
+    context = {'likes_count' : Like.total_likes, 'disLikes_count' : DisLike.total_disLikes}
+    return HttpResponse(json.dumps(list(context)), content_type='application/json')
 
 
 # under pages are handler of exception for 400, 403, 404 and 500
