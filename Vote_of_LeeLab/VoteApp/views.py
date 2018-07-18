@@ -72,7 +72,7 @@ def index(request):
             "VoteApp/index.html",
            {
                'active_home' : "active", # begin common
-               'title' : "투표 종료까지 남은시간!",
+               'title' : "투표 진행 중!",
                'url' : "https://chenny.ml/",
                'description' : "LEE LAB 투표 진행중!",
                'sitename' : "Lee Lab Server",
@@ -124,6 +124,50 @@ def about(request):
             'content' : "테스트 페이지"
         }
     )
+
+
+def vote(request):
+    '''
+    [vote page]
+    almost request & reply uesd ajax
+    '''
+    if (COUNTDOWN_TARGET_DATE + DURIONG_DATE) > timezone.localtime():
+        td = (COUNTDOWN_TARGET_DATE + DURIONG_DATE) - timezone.localtime()
+        send_data = (td.days * 86400) + td.seconds
+        return render(
+            request,
+            "VoteApp/vote.html",
+           {
+               'active_home' : "active", # begin common
+               'title' : "투표 진행 중!",
+               'url' : "https://chenny.ml/",
+               'description' : "LEE LAB 투표 진행중!",
+               'sitename' : "Lee Lab Server",
+               'locale' : "ko_KR",
+               'type' : "article", # end common
+               'noti_title' : "[종료 알림!!]", # begin noti
+               'noti_context' : "투표가 종료되었습니다! 결과를 확인하세요!",
+               'noti_img' : "https://chenny.ml/static/img/logo2.png", # end noti
+               'date_of_begin_time' : "투표 종료일 : " + (COUNTDOWN_TARGET_DATE + DURIONG_DATE).strftime('%Y년 %m월 %d일 - %H시 %M분 %S초'),
+               'server_time': send_data,
+            }
+        )
+    else:
+        return render(
+            request,
+            "VoteApp/vote.html",
+           {
+               'active_home' : "active", # begin common
+               'title' : "투표 종료",
+               'url' : "https://chenny.ml/",
+               'description' : "LEE LAB 투표 결과",
+               'sitename' : "Lee Lab Server",
+               'locale' : "ko_KR",
+               'type' : "article", # end common
+               'date_of_begin_time' : "투표 종료일 : " + (COUNTDOWN_TARGET_DATE + DURIONG_DATE).strftime('%Y년 %m월 %d일 - %H시 %M분 %S초'),
+               'server_time': 0,
+            }
+        )
 
 
 def capstone(request):

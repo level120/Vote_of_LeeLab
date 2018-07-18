@@ -33,16 +33,19 @@
 /*------------------------------------------*/
 /*	     01 - General & Basic Styles
 /*------------------------------------------*/
+body, input, button, select, textarea, h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6, .purchase span {
+    font-family: "Open Sans","Helvetica Neue", Helvetica, Arial, 'Apple SD Gothic Neo','Noto Sans CJK KR', 'Noto Sans KR', '나눔바른고딕','나눔고딕','NanumGothic','맑은고딕','Malgun Gothic', "Nanum Gothic", sans-serif;
+}
+
 body {
-	font-family: 'Noto Sans KR', sans-serif;
-	font-size: 13px;
+    font-size: 13px;
     line-height: 21px;
-	font-weight: 300;
-	color: #666;
-	overflow-x: hidden;
+    font-weight: 300;
+    color: #666;
+    overflow-x: hidden;
     height: 100%;
     margin: 0;
-	/*background: url(../img/patterns/1.png) fixed repeat;*/
+    /*background: url(../img/patterns/1.png) fixed repeat;*/
 }
 
 section {

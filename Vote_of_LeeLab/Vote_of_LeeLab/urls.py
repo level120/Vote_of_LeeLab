@@ -25,6 +25,7 @@ urlpatterns = [
     # Examples:
     url(r'^$', VoteApp.views.index, name='index'),
     url(r'^about$', VoteApp.views.about, name='about'),
+    url(r'^vote$', VoteApp.views.vote, name='vote'),
     url(r'^capstone_design$', VoteApp.views.capstone, name='capstone'),
     url(r'^signup$', VoteApp.views.signup, name='signup'),
     url(r'^login/$',

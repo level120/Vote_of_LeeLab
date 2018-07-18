@@ -47,6 +47,9 @@
     <Compile Include="VoteApp\forms.py" />
     <Compile Include="VoteApp\migrations\__init__.py" />
     <Compile Include="VoteApp\models.py" />
+    <Compile Include="VoteApp\temaplatetags\vote.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="VoteApp\tests.py" />
     <Compile Include="VoteApp\views.py" />
     <Compile Include="VoteApp\__init__.py" />
@@ -67,6 +70,7 @@
     <Folder Include="app\templates\app\" />
     <Folder Include="VoteApp\" />
     <Folder Include="VoteApp\migrations\" />
+    <Folder Include="D:\temp\django\Vote_of_LeeLab\Vote_of_LeeLab\VoteApp\temaplatetags\" />
     <Folder Include="VoteApp\static\" />
     <Folder Include="VoteApp\static\asset\" />
     <Folder Include="VoteApp\static\asset\css\" />
@@ -77,6 +81,7 @@
     <Folder Include="VoteApp\static\img\" />
     <Folder Include="VoteApp\static\img\icons\" />
     <Folder Include="VoteApp\static\js\" />
+    <Folder Include="VoteApp\temaplatetags\" />
     <Folder Include="VoteApp\templates\" />
     <Folder Include="VoteApp\templates\VoteApp\" />
     <Folder Include="Vote_of_LeeLab\" />
@@ -129,6 +134,7 @@
     <Content Include="VoteApp\static\css\colors\red.css" />
     <Content Include="VoteApp\static\css\colors\sky-blue.css" />
     <Content Include="VoteApp\static\css\colors\yellow.css" />
+    <Content Include="VoteApp\static\css\connect.css" />
     <Content Include="VoteApp\static\css\font-awesome.min.css" />
     <Content Include="VoteApp\static\css\responsive.css" />
     <Content Include="VoteApp\static\css\settings.css" />
@@ -169,6 +175,7 @@
     <Content Include="VoteApp\static\js\jquery.textillate.js" />
     <Content Include="VoteApp\static\js\jquery.themepunch.revolution.min.js" />
     <Content Include="VoteApp\static\js\jquery.themepunch.tools.min.js" />
+    <Content Include="VoteApp\templates\VoteApp\vote.html" />
     <None Include="VoteApp\static\js\jquery.validate-vsdoc.js" />
     <Content Include="VoteApp\static\js\jquery.validate.js" />
     <Content Include="VoteApp\static\js\jquery.validate.min.js" />
