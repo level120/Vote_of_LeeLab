@@ -26,8 +26,9 @@ urlpatterns = [
     url(r'^$', VoteApp.views.index, name='index'),
     url(r'^about$', VoteApp.views.about, name='about'),
     url(r'^vote$', VoteApp.views.vote, name='vote'),
+    url(r'^result$', VoteApp.views.result, name='result'),
     url(r'^capstone_design$', VoteApp.views.capstone, name='capstone'),
-    url(r'^signup$', VoteApp.views.signup, name='signup'),
+    # url(r'^signup$', VoteApp.views.signup, name='signup'),
     url(r'^login/$',
         django.contrib.auth.views.login,
         {

@@ -1,3 +1,4 @@
 django >=1.9, <2
 social-auth-app-django==2.1.0
 social-auth-core==1.7.0
+django-mathfilters

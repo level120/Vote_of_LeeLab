@@ -107,6 +107,7 @@ INSTALLED_APPS = [
     'VoteApp',
     'social_django',
     #'notifications',
+    'mathfilters',
 ]
 
 MIDDLEWARE = [

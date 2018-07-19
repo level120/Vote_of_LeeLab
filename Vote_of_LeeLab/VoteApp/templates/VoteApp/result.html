@@ -8,7 +8,7 @@
         <div class="call-action call-action-boxed call-action-style1 clearfix">
             <h2 style="text-align:center;" class="primary">{{ date_of_begin_time }}</h2>
         </div>
-
+        
         <div class="alert alert-success" role="alert">
             <h4 style="text-align:center;" class="alert-heading">남은 시간 : <span style="margin-left:15px" id="day">0</span>일<span style="margin-left:15px" id="hour">0</span>시<span style="margin-left:15px" id="min">0</span>분<span style="margin-left:15px" id="sec">0</span>초</h4>
         </div>
@@ -19,8 +19,8 @@
             <div style="margin-bottom: 20px;"></div>
 
             <ul class="nav nav-pills">
-                <li class="active"><a href="{% url 'vote' %}">투표하기</a></li>
-                <li><a href="{% url 'result' %}" style="color:black">결과보기</a></li>
+                <li><a href="{% url 'vote' %}" style="color:black">투표하기</a></li>
+                <li class="active"><a href="{% url 'result' %}">결과보기</a></li>
             </ul>
         </div>
         <div style="margin-bottom: 20px;"></div>
@@ -51,9 +51,7 @@
                                 </div>
                             </td>
                             {% if user.is_authenticated %}
-                            <td style="vertical-align:middle"><button type="button" id="{{ player.id }}" name="vote{{ player.id }}" class="like btn btn-success glyphicon glyphicon-thumbs-up"> 투표하기</button></td>
-                            {% else %}
-                            <td style="vertical-align:middle"><button type="button" id="{{ player.id }}" name="vote{{ player.id }}" class="like btn btn-warning glyphicon glyphicon-thumbs-up disabled"> 투표하기</button></td>
+                            <td style="vertical-align:middle"><button type="button" id="{{ player.id }}" class="like glyphicon glyphicon-thumbs-up {{ result }}"> 결과보기</button></td>
                             {% endif %}
                         </tr>
                         {% endfor %}
@@ -69,33 +67,6 @@
 </section>
 
 <script type="text/javascript">
-
-    $('[name^=vote]').ready(
-        function () {
-            var pk = $(this).attr('id');
-            console.log(pk);
-            $.ajax({
-                type: "POST",
-                {% if user.is_authenticated %}
-                    url: "{% url 'like_ready' %}",
-                {% else %}
-                    url: "{% url 'like_anonymous' %}",
-                {% endif %}
-                data: {
-                    'pk': pk,
-                    'csrfmiddlewaretoken': '{{ csrf_token }}'
-                },
-                dataType: "json",
-                success: function(response) {
-                    $('#'+pk).text(' ' + response.message + ' ' + response.likes_count);
-                },
-                error: function(request, status, error) {
-                    console.log("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
-                }
-            });
-        }
-    )
-
     $(document).ready(function () {
         var dday = {{ server_time }};
         if (dday > 0) {
@@ -120,56 +91,6 @@
         else {
             clearInterval(timer);
         }
-    });
-
-    {% if user.is_authenticated %}
-    $('.like').click(function() {
-        var pk = $(this).attr('name');
-        $.ajax({
-            type: "POST",
-            url: "{% url 'like' %}",
-            data: {
-                'pk': pk,
-                'csrfmiddlewaretoken': '{{ csrf_token }}'
-            },
-            dataType: "json",
-            success: function(response) {
-                $(this).text(' ' + response.message + ' ' + response.likes_count);
-            },
-            error: function(request, status, error) {
-                console.log("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
-            }
-        });
-    })
-
-    {% endif %}
-
-    function spawnNotification(title, body, icon) {
-        var n = new Notification(title, {
-            body: body,
-            icon: icon
-        });
-
-        n.onclick = function (e) {
-            e.preventDefault();
-            window.open('{{ url }}', '_blank');
-        }
-    }
-
-    function notify() {
-        Notification.requestPermission().then(function (permission) {
-            if (permission === 'granted') {
-                spawnNotification('{{ noti_title }}', '{{ noti_context }}', '{{ noti_img }}');
-            }
-        });
-    }
-
-    window.addEventListener('load', function () {
-        Notification.requestPermission(function (status) {
-            if (Notification.permission !== status) {
-                Notification.permission = status;
-            }
-        });
     });
 
 </script >
