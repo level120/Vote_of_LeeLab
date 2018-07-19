@@ -7,8 +7,6 @@ from django.conf.urls import url, handler400, handler403, handler404, handler500
 from django.contrib.staticfiles.views import serve
 import django.contrib.auth.views
 
-import app.forms
-import app.views
 import VoteApp.views
 
 # Uncomment the next lines to enable the admin:
@@ -64,4 +62,5 @@ urlpatterns = [
      url(r'^like/$', VoteApp.views.like, name='like'),
      url(r'^like_anonymous/$', VoteApp.views.like_anonymous, name='like_anonymous'),
      url(r'^like_ready/$', VoteApp.views.like_ready, name='like_ready'),
+     url(r'^like_result/$', VoteApp.views.like_result, name='like_result'),
 ]

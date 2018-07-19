@@ -45,14 +45,12 @@
                             <td style="vertical-align:middle;width:35%">
                                 <div class="progress progress-striped active" style="margin-bottom: 0px;">
                                     {% with percent=100 %}
-                                    <div class="progress-bar " style="width: {{ player.total_likes|div:all_member|mul:percent }}%;"><span style="vertical-align:middle">{{ player.total_likes }} / {{ all_member }}</span></div>
+                                    <div class="progress-bar pb{{ player.id }}" style="width: {{ player.total_likes|div:all_member|mul:percent }}%;"><span style="vertical-align:middle">{{ player.total_likes }} / {{ all_member }}</span></div>
                                     {#<div class="progress-bar progress-bar-success" style="width: 100%;">1</div>#}
                                     {% endwith %}
                                 </div>
                             </td>
-                            {% if user.is_authenticated %}
-                            <td style="vertical-align:middle"><button type="button" id="{{ player.id }}" class="like glyphicon glyphicon-thumbs-up {{ result }}"> 결과보기</button></td>
-                            {% endif %}
+                            <td style="vertical-align:middle"><button type="button" id="{{ player.id }}" name="vote{{ player.id }}" class="like {{ result }}" data-toggle="modal" data-target="#result">결과보기</button></td>
                         </tr>
                         {% endfor %}
                     </tbody>
@@ -64,9 +62,35 @@
 
     <div style="margin-bottom: 20px;"></div>
 
+    <div class="modal fade" id="result">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">당신에게 투표한 사람은?</h4>
+                </div>
+                <div class="modal-body">
+                    <p>test</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </section>
 
 <script type="text/javascript">
+    $(document).ready(function () {
+        $('[name^=vote]').each(function () {
+            var css = $(this).attr('class');
+            if(css.match(/disabled/)){
+                $(this).attr('disabled', 'disabled');
+            }
+        })
+    });
+
     $(document).ready(function () {
         var dday = {{ server_time }};
         if (dday > 0) {
@@ -92,6 +116,31 @@
             clearInterval(timer);
         }
     });
+
+    {% if user.is_authenticated %}
+    $('.like').click(function() {
+        var pk = $(this).attr('id');
+        $.ajax({
+            type: "POST",
+            url: "{% url 'like_result' %}",
+            data: {
+                'pk': pk,
+                'csrfmiddlewaretoken': '{{ csrf_token }}'
+            },
+            dataType: "json",
+            success: function(response) {
+                console.log(likes_count);
+                console.log(response.message);
+                {#$('.pb'+pk).css('width', (response.likes_count/{{ all_member }})*100+'%');#}
+                {#$('#'+pk).text(' ' + response.message);#}
+            },
+            error: function(request, status, error) {
+                console.log("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
+            }
+        });
+    })
+
+    {% endif %}
 
 </script >
 {% endblock %}

@@ -23,10 +23,10 @@ from django.contrib.auth import login
 # Create your views here.
 
 # CountDown
-# 개발용 locale 설정, 배포시 반드시 주석처리 할 것.
-#locale.setlocale(locale.LC_CTYPE, 'korean')
+# Windows에서 개발 시 locale 설정, Unix 시스템에 배포 시 반드시 주석처리 할 것.
+locale.setlocale(locale.LC_CTYPE, 'korean')
 
-COUNTDOWN_TARGET_DATE = timezone.make_aware(datetime.datetime(2018, 7, 16, 00, 00, 00, 000000))
+COUNTDOWN_TARGET_DATE = timezone.make_aware(datetime.datetime(2018, 6, 16, 00, 00, 00, 000000))
 DURIONG_DATE = datetime.timedelta(days=6, seconds=86399)
 
 def index(request):
@@ -38,7 +38,7 @@ def index(request):
     '''
     # 좋아요 순서
     #likes = Like.objects.annotate(like_count=Count('likes')).order_by('-like_count', '-update_date')
-    likes = get_object_or_404(Like, pk=3)
+    likes = get_object_or_404(Like, pk=1)
 
     if COUNTDOWN_TARGET_DATE > timezone.localtime():
         td = COUNTDOWN_TARGET_DATE - timezone.localtime()
@@ -63,44 +63,9 @@ def index(request):
            }
         )
     elif (COUNTDOWN_TARGET_DATE + DURIONG_DATE) > timezone.localtime():
-        td = (COUNTDOWN_TARGET_DATE + DURIONG_DATE) - timezone.localtime()
-        send_data = (td.days * 86400) + td.seconds
-        return render(
-            request,
-            "VoteApp/index.html",
-           {
-               'active_home' : "active", # begin common
-               'title' : "투표 진행 중!",
-               'url' : "https://chenny.ml/",
-               'description' : "LEE LAB 투표 진행중!",
-               'sitename' : "Lee Lab Server",
-               'locale' : "ko_KR",
-               'type' : "article", # end common
-               'noti_title' : "[종료 알림!!]", # begin noti
-               'noti_context' : "투표가 종료되었습니다! 결과를 확인하세요!",
-               'noti_img' : "https://chenny.ml/static/img/logo2.png", # end noti
-               'date_of_begin_time' : "투표 종료일 : " + (COUNTDOWN_TARGET_DATE + DURIONG_DATE).strftime('%Y년 %m월 %d일 - %H시 %M분 %S초'),
-               'server_time': send_data,
-               'likes' : likes.id
-            }
-        )
+        return redirect('/vote')
     else:
-        return render(
-            request,
-            "VoteApp/index.html",
-           {
-               'active_home' : "active", # begin common
-               'title' : "투표 종료",
-               'url' : "https://chenny.ml/",
-               'description' : "LEE LAB 투표 결과",
-               'sitename' : "Lee Lab Server",
-               'locale' : "ko_KR",
-               'type' : "article", # end common
-               'date_of_begin_time' : "투표 종료일 : " + (COUNTDOWN_TARGET_DATE + DURIONG_DATE).strftime('%Y년 %m월 %d일 - %H시 %M분 %S초'),
-               'server_time': 0,
-               'likes' : likes.id
-            }
-        )
+        return redirect('/result')
 
 
 def about(request):
@@ -131,7 +96,9 @@ def vote(request):
     '''
     likes = Like.objects.filter(isVote=True)
     #likes = Like.objects.annotate(like_count=Count('likes')).order_by('-likes')
-    if (COUNTDOWN_TARGET_DATE + DURIONG_DATE) > timezone.localtime():
+    if COUNTDOWN_TARGET_DATE > timezone.localtime():
+        return redirect('/index')
+    elif (COUNTDOWN_TARGET_DATE + DURIONG_DATE) > timezone.localtime():
         td = (COUNTDOWN_TARGET_DATE + DURIONG_DATE) - timezone.localtime()
         send_data = (td.days * 86400) + td.seconds
         return render(
@@ -175,7 +142,7 @@ def vote(request):
 
 
 def result(request):
-    likes = Like.objects.filter(isVote=True)
+    likes = Like.objects.filter(isVote=True).order_by('-likes')
     # likes = Like.objects.annotate(like_count=Count('likes')).order_by('-likes')
     if (COUNTDOWN_TARGET_DATE + DURIONG_DATE) > timezone.localtime():
         td = (COUNTDOWN_TARGET_DATE + DURIONG_DATE) - timezone.localtime()
@@ -291,6 +258,21 @@ def like_anonymous(request):
         message = '투표하기 '
 
     context = {'likes_count': obj.total_likes, 'message': message}
+    return HttpResponse(json.dumps(context), content_type='application/json')
+
+
+
+@require_POST
+def like_result(request):
+    if request.method == 'POST':
+        name_id = request.POST.get('pk', None)
+        obj = Like.objects.get(pk = name_id)
+        message = []
+        for i in range(0, obj.likes.count()):
+            message.insert(obj.likes.get(i))
+        print(message)
+
+    context = {'likes_count': obj.total_likes, 'message': obj}
     return HttpResponse(json.dumps(context), content_type='application/json')
 
 

@@ -45,7 +45,7 @@
                             <td style="vertical-align:middle;width:35%">
                                 <div class="progress progress-striped active" style="margin-bottom: 0px;">
                                     {% with percent=100 %}
-                                    <div class="progress-bar " style="width: {{ player.total_likes|div:all_member|mul:percent }}%;"><span style="vertical-align:middle">{{ player.total_likes }} / {{ all_member }}</span></div>
+                                    <div class="progress-bar pb{{ player.id }}" style="width: {{ player.total_likes|div:all_member|mul:percent }}%;"><span style="vertical-align:middle">{{ player.total_likes }} / {{ all_member }}</span></div>
                                     {#<div class="progress-bar progress-bar-success" style="width: 100%;">1</div>#}
                                     {% endwith %}
                                 </div>
@@ -53,7 +53,7 @@
                             {% if user.is_authenticated %}
                             <td style="vertical-align:middle"><button type="button" id="{{ player.id }}" name="vote{{ player.id }}" class="like btn btn-success glyphicon glyphicon-thumbs-up"> 투표하기</button></td>
                             {% else %}
-                            <td style="vertical-align:middle"><button type="button" id="{{ player.id }}" name="vote{{ player.id }}" class="like btn btn-warning glyphicon glyphicon-thumbs-up disabled"> 투표하기</button></td>
+                            <td style="vertical-align:middle"><button type="button" id="{{ player.id }}" name="vote{{ player.id }}" class="like btn btn-warning glyphicon glyphicon-thumbs-up disabled" disabled="disabled"> 투표하기</button></td>
                             {% endif %}
                         </tr>
                         {% endfor %}
@@ -69,11 +69,11 @@
 </section>
 
 <script type="text/javascript">
+    var dday = {{ server_time }};
 
-    $('[name^=vote]').ready(
-        function () {
+    $(document).ready(function () {
+        $('[name^=vote]').each(function () {
             var pk = $(this).attr('id');
-            console.log(pk);
             $.ajax({
                 type: "POST",
                 {% if user.is_authenticated %}
@@ -87,17 +87,23 @@
                 },
                 dataType: "json",
                 success: function(response) {
-                    $('#'+pk).text(' ' + response.message + ' ' + response.likes_count);
+                    $('#'+pk).text(' ' + response.message);
+                    if(dday>0){
+                        $('#' + pk).attr('class', (response.message != "투표취소 ") ? 'like btn btn-success glyphicon glyphicon-thumbs-up' : 'like btn btn-danger glyphicon glyphicon-thumbs-down');
+                    }
+                    else{
+                        $('#' + pk).attr('class', (response.message != "투표취소 ") ? 'like btn btn-success glyphicon glyphicon-thumbs-up disabled' : 'like btn btn-danger glyphicon glyphicon-thumbs-down disabled');
+                        $('#' + pk).attr('disabled', 'disabled');
+                    }
                 },
                 error: function(request, status, error) {
                     console.log("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
                 }
             });
-        }
-    )
+        })
+    });
 
     $(document).ready(function () {
-        var dday = {{ server_time }};
         if (dday > 0) {
             var timer = setInterval(function () {
                 if (dday == 0) {
@@ -124,7 +130,7 @@
 
     {% if user.is_authenticated %}
     $('.like').click(function() {
-        var pk = $(this).attr('name');
+        var pk = $(this).attr('id');
         $.ajax({
             type: "POST",
             url: "{% url 'like' %}",
@@ -134,7 +140,10 @@
             },
             dataType: "json",
             success: function(response) {
-                $(this).text(' ' + response.message + ' ' + response.likes_count);
+                $('.pb'+pk).css('width', (response.likes_count/{{ all_member }})*100+'%');
+                $('.pb'+pk+' span').text(response.likes_count+' / '+{{ all_member }});
+                $('#'+pk).text(' ' + response.message);
+                $('#'+pk).attr('class', (response.message!="투표취소 ")?'like btn btn-success glyphicon glyphicon-thumbs-up':'like btn btn-danger glyphicon glyphicon-thumbs-down');
             },
             error: function(request, status, error) {
                 console.log("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
