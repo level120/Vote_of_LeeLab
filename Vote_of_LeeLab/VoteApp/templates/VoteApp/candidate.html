@@ -1,73 +1,87 @@
 {% extends "VoteApp/layout.html" %}
 {% block content %}
-    <section id="vote" class="container content">
-        <div style="margin-bottom: 20px;"></div>
-        <div class="row" style="text-align:center;">
-            <div class="col-md-3"></div>
-            <div class="alert alert-warning col-md-6" role="alert">
-                {% if result %}
-                    <p style="text-align:center;">이 계정은 후보자 계정입니다. 시작일 전까지 정보 수정이 가능합니다.</p>
-                {% else %}
-                    <p style="text-align:center;">이 계정은 후보자 계정이 아닙니다. 이 페이지를 이용할 수 없습니다.</p>
-                {% endif %}
-            </div>
-            <div class="col-md-3"></div>
-        </div>
-        {% if result %}
+    {% if date %}
+        <section id="vote" class="container content">
+            <div style="margin-bottom: 20px;"></div>
             <div class="row" style="text-align:center;">
-                <div class="col-md-2"></div>
-                <div class="alert alert-info col-md-68" role="alert">
-                    <p style="text-align:center;">현재 이 계정에 설정된 정보는 다음과 같습니다..</p>
-                    <hr/>
-                    <p style="text-align:center;">후보자 이름 : {{ likes.name }}</p>
-                    <p style="text-align:center;">후보자 소개 : {{ likes.description }}</p>
+                <div class="col-md-3"></div>
+                <div class="alert alert-warning col-md-6" role="alert">
+                    {% if result %}
+                        <p style="text-align:center;">이 계정은 후보자 계정입니다. 시작일 전까지 정보 수정이 가능합니다.</p>
+                    {% else %}
+                        <p style="text-align:center;">이 계정은 후보자 계정이 아닙니다. 이 페이지를 이용할 수 없습니다.</p>
+                    {% endif %}
                 </div>
-                <div class="col-md-2"></div>
-                <div class="col-md-8">
-                    <section id="loginForm">
-                        <form action="{% url 'candidate' %}" method="post" class="form-horizontal">
-                            {% csrf_token %}
-                            <h4>수정할 수 있는 항목</h4>
-                            <hr />
-                            <div class="form-group">
-                                <label for="id_name_id" class="col-md-2 control-label">후보자 IDF</label>
-                                <div class="col-md-10">
-                                    {#{{ form.name_id.value|default_if_none:likes.name_id }}#}
-                                    {{ form.name_id }}
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="id_name" class="col-md-2 control-label">후보자 이름</label>
-                                <div class="col-md-10">
-                                    {{ form.name }}
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="id_description" class="col-md-2 control-label">후보자 소개</label>
-                                <div class="col-md-10">
-                                    {{ form.description }}
-                                </div>
-                            </div>
-                            <div class="form-group" style="text-align:left;">
-                                <div class="col-md-12" style="text-align: center">
-                                    <input type="hidden" name="next" value="/" />
-                                    <input id="submit" type="submit" value="저장" class="btn btn-default" />
-                                </div>
-                            </div>
-                        </form>
-                    </section>
-                </div>
-                <div class="col-md-2"></div>
+                <div class="col-md-3"></div>
             </div>
-        {% endif %}
-    </section>
+            {% if result %}
+                <div class="row" style="text-align:center;">
+                    <div class="col-md-2"></div>
+                    <div class="alert alert-info col-md-68" role="alert">
+                        <p style="text-align:center;">현재 이 계정에 설정된 정보는 다음과 같습니다..</p>
+                        <hr/>
+                        <p style="text-align:center;">후보자 이름 : {{ likes.name }}</p>
+                        <p style="text-align:center;">후보자 소개 : {{ likes.description }}</p>
+                    </div>
+                    <div class="col-md-2"></div>
+                    <div class="col-md-8">
+                        <section id="loginForm">
+                            <form action="{% url 'candidate' %}" method="post" class="form-horizontal">
+                                {% csrf_token %}
+                                <h4>수정할 수 있는 항목</h4>
+                                <hr />
+                                <div class="form-group">
+                                    <label for="id_name_id" class="col-md-2 control-label">후보자 IDF</label>
+                                    <div class="col-md-10">
+                                        {#{{ form.name_id.value|default_if_none:likes.name_id }}#}
+                                        {{ form.name_id }}
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="id_name" class="col-md-2 control-label">후보자 이름</label>
+                                    <div class="col-md-10">
+                                        {{ form.name }}
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="id_description" class="col-md-2 control-label">후보자 소개</label>
+                                    <div class="col-md-10">
+                                        {{ form.description }}
+                                    </div>
+                                </div>
+                                <div class="form-group" style="text-align:left;">
+                                    <div class="col-md-12" style="text-align: center">
+                                        <input type="hidden" name="next" value="/" />
+                                        <input id="submit" type="submit" value="저장" class="btn btn-default" />
+                                    </div>
+                                </div>
+                            </form>
+                        </section>
+                    </div>
+                    <div class="col-md-2"></div>
+                </div>
+            {% endif %}
+        </section>
 
-    <script type="text/javascript">
-    $(document).ready(function () {
-        $("select[id='id_name_id'] option:contains('{{ like.name_id }}')").prop('selected', true).prop("disabled", true);
-    });
-    $(document).on("click", "#submit", function () {
-        $("select[id='id_name_id'] option:contains('{{ like.name_id }}')").prop('selected', true).prop("disabled", false);
-    });
-    </script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $("select[id='id_name_id'] option").prop("disabled", true);
+                $("select[id='id_name_id'] option:contains('{{ likes.name_id }}')").prop('selected', true).prop("disabled", true);
+            });
+            $(document).on("click", "#submit", function () {
+                $("select[id='id_name_id'] option:contains('{{ likes.name_id }}')").prop('selected', true).prop("disabled", false);
+            });
+        </script>
+    {% else %}
+        <section id="vote" class="container content">
+            <div style="margin-bottom: 20px;"></div>
+            <div class="row" style="text-align:center;">
+                <div class="col-md-3"></div>
+                <div class="alert alert-danger col-md-6" role="alert">
+                    <p style="text-align:center;">정보수정 가능 기간이 아닙니다.</p>
+                </div>
+                <div class="col-md-3"></div>
+            </div>
+        </section>
+    {% endif %}
 {% endblock %}

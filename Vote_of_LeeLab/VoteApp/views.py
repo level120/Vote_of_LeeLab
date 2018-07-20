@@ -27,8 +27,8 @@ from django.contrib.auth import login
 # Windows에서 개발 시 locale 설정, Unix 시스템에 배포 시 반드시 주석처리 할 것.
 #locale.setlocale(locale.LC_CTYPE, 'korean')
 
-COUNTDOWN_TARGET_DATE = timezone.make_aware(datetime.datetime(2018, 8, 16, 00, 00, 00, 000000))
-DURIONG_DATE = datetime.timedelta(days=6, seconds=86399)
+COUNTDOWN_TARGET_DATE = timezone.make_aware(datetime.datetime(2018, 7, 21, 12, 00, 00, 000000))
+DURIONG_DATE = datetime.timedelta(days=0, seconds=86399)
 
 def index(request):
     '''
@@ -87,35 +87,54 @@ def about(request):
 
 @login_required
 def candidate(request):
-    excet_value = True
-    try:
-        data = Like.objects.get(name_id=User.objects.get(username=request.user.get_username()))
-        likes = Like.objects.get(pk=data.id)
-    except:
-        excet_value = False
-        return render(
-            request,
-            'VoteApp/candidate.html',
-            {
-                'active_candidate': "active",  # begin common
-                'title': "후보자 전용 페이지",
-                'url': "https://chenny.ml/",
-                'description': "후보자가 아닙니다",
-                'locale': "ko_KR",
-                'type': "article",  # end common
-                'result' : excet_value
-            }
-        )
+    if COUNTDOWN_TARGET_DATE > timezone.localtime():
+        excet_value = True
+        try:
+            data = Like.objects.get(name_id=User.objects.get(username=request.user.get_username()))
+            likes = Like.objects.get(pk=data.id)
+        except:
+            excet_value = False
+            return render(
+                request,
+                'VoteApp/candidate.html',
+                {
+                    'active_candidate': "active",  # begin common
+                    'title': "후보자 전용 페이지",
+                    'url': "https://chenny.ml/",
+                    'description': "후보자가 아닙니다",
+                    'locale': "ko_KR",
+                    'type': "article",  # end common
+                    'result' : excet_value,
+                    'date' : True
+                }
+            )
 
-    if request.method == "POST":
-        form = LikeForm(request.POST, instance=likes)
-        if form.is_valid():
-            slike = form.save(commit=False)
-            slike.generate()
-            return redirect('/')
+        if request.method == "POST":
+            form = LikeForm(request.POST, instance=likes)
+            if form.is_valid():
+                slike = form.save(commit=False)
+                slike.generate()
+                return redirect('/')
+        else:
+            form = LikeForm()
+            form.merge_from_initial()
+            return render(
+                request,
+                'VoteApp/candidate.html',
+                {
+                    'active_candidate': "active",  # begin common
+                    'title': "후보자 정보수정",
+                    'url': "https://chenny.ml/",
+                    'description': "후보자 정보수정 페이지",
+                    'locale': "ko_KR",
+                    'type': "article",  # end common
+                    'form': form,
+                    'result': excet_value,
+                    'likes' : likes,
+                    'date': True
+                }
+            )
     else:
-        form = LikeForm()
-        form.merge_from_initial()
         return render(
             request,
             'VoteApp/candidate.html',
@@ -126,9 +145,7 @@ def candidate(request):
                 'description': "후보자 정보수정 페이지",
                 'locale': "ko_KR",
                 'type': "article",  # end common
-                'form': form,
-                'result': excet_value,
-                'likes' : likes
+                'date': False
             }
         )
 

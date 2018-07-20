@@ -3,9 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="26258bc7-35a2-4baa-b170-df0b6ce08e24" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Vote_of_LeeLab/VoteApp/templates/VoteApp/layout.html" beforeDir="false" afterPath="$PROJECT_DIR$/Vote_of_LeeLab/VoteApp/templates/VoteApp/layout.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Vote_of_LeeLab/Vote_of_LeeLab/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/Vote_of_LeeLab/Vote_of_LeeLab/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Vote_of_LeeLab/readme.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Vote_of_LeeLab/VoteApp/templates/VoteApp/candidate.html" beforeDir="false" afterPath="$PROJECT_DIR$/Vote_of_LeeLab/VoteApp/templates/VoteApp/candidate.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Vote_of_LeeLab/VoteApp/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/Vote_of_LeeLab/VoteApp/views.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -19,20 +18,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="candidate.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Vote_of_LeeLab/VoteApp/templates/VoteApp/candidate.html">
+      <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Vote_of_LeeLab/Vote_of_LeeLab/urls.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="432">
-              <caret line="27" column="22" selection-start-line="27" selection-start-column="22" selection-end-line="27" selection-end-column="22" />
-              <folding>
-                <element signature="e#223#249#0#HTML" expanded="true" />
-                <element signature="e#344#370#0#HTML" expanded="true" />
-                <element signature="e#233#259#0#HTML" expanded="true" />
-                <element signature="e#869#895#0#HTML" expanded="true" />
-                <element signature="e#989#1015#0#HTML" expanded="true" />
-                <element signature="e#1175#1201#0#HTML" expanded="true" />
-                <element signature="e#1899#1925#0#HTML" expanded="true" />
-              </folding>
+            <state relative-caret-position="256">
+              <caret line="25" column="67" lean-forward="true" selection-start-line="25" selection-start-column="67" selection-end-line="25" selection-end-column="67" />
             </state>
           </provider>
         </entry>
@@ -40,7 +30,7 @@
       <file leaf-file-name="forms.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Vote_of_LeeLab/VoteApp/forms.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="384">
+            <state relative-caret-position="420">
               <caret line="27" column="71" selection-start-line="27" selection-start-column="71" selection-end-line="27" selection-end-column="71" />
               <folding>
                 <element signature="e#30#54#0" expanded="true" />
@@ -52,8 +42,8 @@
       <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Vote_of_LeeLab/VoteApp/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="400">
-              <caret line="25" column="11" lean-forward="true" selection-start-line="25" selection-start-column="11" selection-end-line="25" selection-end-column="11" />
+            <state relative-caret-position="480">
+              <caret line="30" column="41" selection-start-line="30" selection-start-column="41" selection-end-line="30" selection-end-column="41" />
               <folding>
                 <element signature="e#0#84#0" expanded="true" />
               </folding>
@@ -61,10 +51,19 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="vote.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Vote_of_LeeLab/VoteApp/templates/VoteApp/vote.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="196">
+              <caret line="141" column="41" selection-start-line="141" selection-start-column="41" selection-end-line="141" selection-end-column="41" />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Vote_of_LeeLab/VoteApp/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="144">
+            <state relative-caret-position="208">
               <caret line="13" column="4" selection-start-line="13" selection-start-column="4" selection-end-line="13" selection-end-column="4" />
               <folding>
                 <element signature="e#0#28#0" expanded="true" />
@@ -77,7 +76,7 @@
         <entry file="file://$PROJECT_DIR$/Vote_of_LeeLab/Vote_of_LeeLab/settings.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="178">
-              <caret line="190" lean-forward="true" selection-start-line="190" selection-end-line="190" />
+              <caret line="190" selection-start-line="190" selection-end-line="190" />
             </state>
           </provider>
         </entry>
@@ -122,7 +121,6 @@
       <list>
         <option value="$PROJECT_DIR$/Vote_of_LeeLab/VoteApp/temaplatetags/vote.py" />
         <option value="$PROJECT_DIR$/Vote_of_LeeLab/requirements.txt" />
-        <option value="$PROJECT_DIR$/Vote_of_LeeLab/VoteApp/templates/VoteApp/vote.html" />
         <option value="$PROJECT_DIR$/Vote_of_LeeLab/VoteApp/templates/VoteApp/result.html" />
         <option value="$PROJECT_DIR$/Vote_of_LeeLab/VoteApp/templates/VoteApp/countdown.html" />
         <option value="$PROJECT_DIR$/Vote_of_LeeLab/VoteApp/templates/VoteApp/index.html" />
@@ -131,9 +129,10 @@
         <option value="$PROJECT_DIR$/Vote_of_LeeLab/VoteApp/templates/VoteApp/login.html" />
         <option value="$PROJECT_DIR$/Vote_of_LeeLab/VoteApp/models.py" />
         <option value="$PROJECT_DIR$/Vote_of_LeeLab/VoteApp/forms.py" />
-        <option value="$PROJECT_DIR$/Vote_of_LeeLab/VoteApp/templates/VoteApp/candidate.html" />
         <option value="$PROJECT_DIR$/Vote_of_LeeLab/VoteApp/templates/VoteApp/layout.html" />
         <option value="$PROJECT_DIR$/Vote_of_LeeLab/Vote_of_LeeLab/settings.py" />
+        <option value="$PROJECT_DIR$/Vote_of_LeeLab/VoteApp/templates/VoteApp/candidate.html" />
+        <option value="$PROJECT_DIR$/Vote_of_LeeLab/VoteApp/templates/VoteApp/vote.html" />
         <option value="$PROJECT_DIR$/Vote_of_LeeLab/VoteApp/views.py" />
       </list>
     </option>
@@ -181,30 +180,6 @@
               <item name="Vote_of_LeeLab" type="462c0819:PsiDirectoryNode" />
               <item name="Vote_of_LeeLab" type="462c0819:PsiDirectoryNode" />
               <item name="VoteApp" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Vote_of_LeeLab" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Vote_of_LeeLab" type="462c0819:PsiDirectoryNode" />
-              <item name="Vote_of_LeeLab" type="462c0819:PsiDirectoryNode" />
-              <item name="VoteApp" type="462c0819:PsiDirectoryNode" />
-              <item name="static" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Vote_of_LeeLab" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Vote_of_LeeLab" type="462c0819:PsiDirectoryNode" />
-              <item name="Vote_of_LeeLab" type="462c0819:PsiDirectoryNode" />
-              <item name="VoteApp" type="462c0819:PsiDirectoryNode" />
-              <item name="static" type="462c0819:PsiDirectoryNode" />
-              <item name="VoteApp" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Vote_of_LeeLab" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Vote_of_LeeLab" type="462c0819:PsiDirectoryNode" />
-              <item name="Vote_of_LeeLab" type="462c0819:PsiDirectoryNode" />
-              <item name="VoteApp" type="462c0819:PsiDirectoryNode" />
-              <item name="static" type="462c0819:PsiDirectoryNode" />
-              <item name="VoteApp" type="462c0819:PsiDirectoryNode" />
-              <item name="img" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Vote_of_LeeLab" type="b2602c69:ProjectViewProjectNode" />
@@ -305,7 +280,7 @@
       <window_info anchor="bottom" id="Python Console" order="10" />
       <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32893288" />
       <window_info anchor="bottom" id="Terminal" order="11" weight="0.32893288" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.26256078" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.26661265" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="right" id="Database" order="4" />
       <window_info anchor="right" id="SciView" order="3" />
@@ -329,14 +304,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/Vote_of_LeeLab/VoteApp/views.py</url>
-          <line>110</line>
-          <option name="timeStamp" value="6" />
-        </line-breakpoint>
-      </breakpoints>
-      <option name="time" value="7" />
+      <option name="time" value="8" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
@@ -382,13 +350,9 @@
         <state relative-caret-position="432">
           <caret line="27" column="22" selection-start-line="27" selection-start-column="22" selection-end-line="27" selection-end-column="22" />
           <folding>
-            <element signature="e#223#249#0#HTML" expanded="true" />
-            <element signature="e#344#370#0#HTML" expanded="true" />
-            <element signature="e#233#259#0#HTML" expanded="true" />
-            <element signature="e#869#895#0#HTML" expanded="true" />
-            <element signature="e#989#1015#0#HTML" expanded="true" />
-            <element signature="e#1175#1201#0#HTML" expanded="true" />
-            <element signature="e#1899#1925#0#HTML" expanded="true" />
+            <element signature="e#4132#4160#0#HTML" expanded="true" />
+            <element signature="e#4197#4223#0#HTML" expanded="true" />
+            <element signature="e#4369#4395#0#HTML" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -435,13 +399,9 @@
         <state relative-caret-position="432">
           <caret line="27" column="22" lean-forward="true" selection-start-line="27" selection-start-column="22" selection-end-line="27" selection-end-column="22" />
           <folding>
-            <element signature="e#223#249#0#HTML" expanded="true" />
-            <element signature="e#344#370#0#HTML" expanded="true" />
-            <element signature="e#233#259#0#HTML" expanded="true" />
-            <element signature="e#869#895#0#HTML" expanded="true" />
-            <element signature="e#989#1015#0#HTML" expanded="true" />
-            <element signature="e#1175#1201#0#HTML" expanded="true" />
-            <element signature="e#1899#1925#0#HTML" expanded="true" />
+            <element signature="e#4132#4160#0#HTML" expanded="true" />
+            <element signature="e#4197#4223#0#HTML" expanded="true" />
+            <element signature="e#4369#4395#0#HTML" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -620,13 +580,6 @@
     <entry file="file://$PROJECT_DIR$/Vote_of_LeeLab/VoteApp/templates/VoteApp/capstone_design.html">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/Vote_of_LeeLab/Vote_of_LeeLab/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="352">
-          <caret line="25" column="67" lean-forward="true" selection-start-line="25" selection-start-column="67" selection-end-line="25" selection-end-column="67" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Vote_of_LeeLab/VoteApp/templates/VoteApp/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="112">
@@ -676,53 +629,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Vote_of_LeeLab/VoteApp/templates/VoteApp/vote.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="92" column="21" lean-forward="true" selection-start-line="92" selection-start-column="21" selection-end-line="92" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Vote_of_LeeLab/VoteApp/templates/VoteApp/result.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1164">
           <caret line="3" column="45" lean-forward="true" selection-start-line="3" selection-start-column="45" selection-end-line="3" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Vote_of_LeeLab/VoteApp/forms.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="384">
-          <caret line="27" column="71" selection-start-line="27" selection-start-column="71" selection-end-line="27" selection-end-column="71" />
-          <folding>
-            <element signature="e#30#54#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Vote_of_LeeLab/VoteApp/templates/VoteApp/candidate.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="432">
-          <caret line="27" column="22" selection-start-line="27" selection-start-column="22" selection-end-line="27" selection-end-column="22" />
-          <folding>
-            <element signature="e#223#249#0#HTML" expanded="true" />
-            <element signature="e#344#370#0#HTML" expanded="true" />
-            <element signature="e#233#259#0#HTML" expanded="true" />
-            <element signature="e#869#895#0#HTML" expanded="true" />
-            <element signature="e#989#1015#0#HTML" expanded="true" />
-            <element signature="e#1175#1201#0#HTML" expanded="true" />
-            <element signature="e#1899#1925#0#HTML" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Vote_of_LeeLab/VoteApp/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="13" column="4" selection-start-line="13" selection-start-column="4" selection-end-line="13" selection-end-column="4" />
-          <folding>
-            <element signature="e#0#28#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -733,17 +643,63 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Vote_of_LeeLab/VoteApp/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="208">
+          <caret line="13" column="4" selection-start-line="13" selection-start-column="4" selection-end-line="13" selection-end-column="4" />
+          <folding>
+            <element signature="e#0#28#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Vote_of_LeeLab/VoteApp/templates/VoteApp/candidate.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1232">
+          <caret line="77" column="56" lean-forward="true" selection-start-line="77" selection-start-column="56" selection-end-line="77" selection-end-column="56" />
+          <folding>
+            <element signature="e#4132#4160#0#HTML" expanded="true" />
+            <element signature="e#4197#4223#0#HTML" expanded="true" />
+            <element signature="e#4369#4395#0#HTML" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Vote_of_LeeLab/Vote_of_LeeLab/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="256">
+          <caret line="25" column="67" lean-forward="true" selection-start-line="25" selection-start-column="67" selection-end-line="25" selection-end-column="67" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Vote_of_LeeLab/Vote_of_LeeLab/settings.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="178">
-          <caret line="190" lean-forward="true" selection-start-line="190" selection-end-line="190" />
+          <caret line="190" selection-start-line="190" selection-end-line="190" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Vote_of_LeeLab/VoteApp/templates/VoteApp/vote.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="196">
+          <caret line="141" column="41" selection-start-line="141" selection-start-column="41" selection-end-line="141" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Vote_of_LeeLab/VoteApp/forms.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="27" column="71" selection-start-line="27" selection-start-column="71" selection-end-line="27" selection-end-column="71" />
+          <folding>
+            <element signature="e#30#54#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Vote_of_LeeLab/VoteApp/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="400">
-          <caret line="25" column="11" lean-forward="true" selection-start-line="25" selection-start-column="11" selection-end-line="25" selection-end-column="11" />
+        <state relative-caret-position="480">
+          <caret line="30" column="41" selection-start-line="30" selection-start-column="41" selection-end-line="30" selection-end-column="41" />
           <folding>
             <element signature="e#0#84#0" expanded="true" />
           </folding>
