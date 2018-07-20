@@ -14,6 +14,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
 from django.http import HttpResponse
 from .models import Like
+from .forms import LikeForm
 
 # Registrator of user
 from .forms import BootstrapAuthenticationForm
@@ -24,9 +25,9 @@ from django.contrib.auth import login
 
 # CountDown
 # Windows에서 개발 시 locale 설정, Unix 시스템에 배포 시 반드시 주석처리 할 것.
-locale.setlocale(locale.LC_CTYPE, 'korean')
+#locale.setlocale(locale.LC_CTYPE, 'korean')
 
-COUNTDOWN_TARGET_DATE = timezone.make_aware(datetime.datetime(2018, 6, 16, 00, 00, 00, 000000))
+COUNTDOWN_TARGET_DATE = timezone.make_aware(datetime.datetime(2018, 8, 16, 00, 00, 00, 000000))
 DURIONG_DATE = datetime.timedelta(days=6, seconds=86399)
 
 def index(request):
@@ -36,10 +37,6 @@ def index(request):
     "elif" is after start time and before end time
     "else" is after end time
     '''
-    # 좋아요 순서
-    #likes = Like.objects.annotate(like_count=Count('likes')).order_by('-like_count', '-update_date')
-    likes = get_object_or_404(Like, pk=1)
-
     if COUNTDOWN_TARGET_DATE > timezone.localtime():
         td = COUNTDOWN_TARGET_DATE - timezone.localtime()
         send_data = (td.days * 86400) + td.seconds
@@ -59,7 +56,6 @@ def index(request):
                'noti_img' : "https://chenny.ml/static/img/logo2.png", # end noti
                'date_of_begin_time' : "투표 예정일 : " + COUNTDOWN_TARGET_DATE.strftime('%Y년 %m월 %d일 - %H시 %M분 %S초'),
                'server_time' : send_data,
-               'likes' : likes.id
            }
         )
     elif (COUNTDOWN_TARGET_DATE + DURIONG_DATE) > timezone.localtime():
@@ -87,6 +83,54 @@ def about(request):
             'content' : "테스트 페이지"
         }
     )
+
+
+@login_required
+def candidate(request):
+    excet_value = True
+    try:
+        data = Like.objects.get(name_id=User.objects.get(username=request.user.get_username()))
+        likes = Like.objects.get(pk=data.id)
+    except:
+        excet_value = False
+        return render(
+            request,
+            'VoteApp/candidate.html',
+            {
+                'active_candidate': "active",  # begin common
+                'title': "후보자 전용 페이지",
+                'url': "https://chenny.ml/",
+                'description': "후보자가 아닙니다",
+                'locale': "ko_KR",
+                'type': "article",  # end common
+                'result' : excet_value
+            }
+        )
+
+    if request.method == "POST":
+        form = LikeForm(request.POST, instance=likes)
+        if form.is_valid():
+            slike = form.save(commit=False)
+            slike.generate()
+            return redirect('/')
+    else:
+        form = LikeForm()
+        form.merge_from_initial()
+        return render(
+            request,
+            'VoteApp/candidate.html',
+            {
+                'active_candidate': "active",  # begin common
+                'title': "후보자 정보수정",
+                'url': "https://chenny.ml/",
+                'description': "후보자 정보수정 페이지",
+                'locale': "ko_KR",
+                'type': "article",  # end common
+                'form': form,
+                'result': excet_value,
+                'likes' : likes
+            }
+        )
 
 
 def vote(request):
@@ -118,7 +162,7 @@ def vote(request):
                'date_of_begin_time' : "투표 종료일 : " + (COUNTDOWN_TARGET_DATE + DURIONG_DATE).strftime('%Y년 %m월 %d일 - %H시 %M분 %S초'),
                'server_time': send_data,
                'players' : likes,
-               'all_member' : User.objects.count()
+               'all_member' : User.objects.count()-1
             }
         )
     else:
@@ -136,7 +180,7 @@ def vote(request):
                'date_of_begin_time' : "투표 종료일 : " + (COUNTDOWN_TARGET_DATE + DURIONG_DATE).strftime('%Y년 %m월 %d일 - %H시 %M분 %S초'),
                'server_time': 0,
                'players': likes,
-               'all_member': User.objects.count()
+               'all_member': User.objects.count()-1
             }
         )
 
@@ -161,7 +205,7 @@ def result(request):
                 'date_of_begin_time': "투표 종료일 : " + (COUNTDOWN_TARGET_DATE + DURIONG_DATE).strftime('%Y년 %m월 %d일 - %H시 %M분 %S초'),
                 'server_time': send_data,
                 'players': likes,
-                'all_member': User.objects.count(),
+                'all_member': User.objects.count()-1,
                 'result' : 'btn btn-warning disabled'
             }
         )
@@ -180,7 +224,7 @@ def result(request):
                 'date_of_begin_time': "투표 종료일 : " + (COUNTDOWN_TARGET_DATE + DURIONG_DATE).strftime('%Y년 %m월 %d일 - %H시 %M분 %S초'),
                 'server_time': 0,
                 'players': likes,
-                'all_member': User.objects.count(),
+                'all_member': User.objects.count()-1,
                 'result' : 'btn btn-info'
             }
         )
@@ -267,12 +311,12 @@ def like_result(request):
     if request.method == 'POST':
         name_id = request.POST.get('pk', None)
         obj = Like.objects.get(pk = name_id)
+        itr = obj.likes.all()
         message = []
-        for i in range(0, obj.likes.count()):
-            message.insert(obj.likes.get(i))
-        print(message)
+        for i in itr:
+            message.append(i.email + " - " + i.last_name + i.first_name)
 
-    context = {'likes_count': obj.total_likes, 'message': obj}
+    context = {'likes_count': obj.total_likes, 'message': message}
     return HttpResponse(json.dumps(context), content_type='application/json')
 
 

@@ -23,6 +23,8 @@ urlpatterns = [
     # Examples:
     url(r'^$', VoteApp.views.index, name='index'),
     url(r'^about$', VoteApp.views.about, name='about'),
+    url(r'^candidate$', VoteApp.views.candidate, name='candidate'),
+    # url(r'^candidate/(?P<pk>\w+)$', VoteApp.views.candidate, name='candidate'),
     url(r'^vote$', VoteApp.views.vote, name='vote'),
     url(r'^result$', VoteApp.views.result, name='result'),
     url(r'^capstone_design$', VoteApp.views.capstone, name='capstone'),

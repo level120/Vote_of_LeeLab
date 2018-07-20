@@ -63,14 +63,16 @@
     <div style="margin-bottom: 20px;"></div>
 
     <div class="modal fade" id="result">
-        <div class="modal-dialog">
+        <div class="modal-dialog" style="position: absolute;top: 50%;left: 50%;transform: translate(-50%, -50%) !important;">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title">당신에게 투표한 사람은?</h4>
                 </div>
                 <div class="modal-body">
-                    <p>test</p>
+                    <p>당신에게 투표한 사람은 총 <span id="modal-result-count">-</span>명 입니다.</p>
+                    <hr />
+                    <ui id="modal-result"></ui>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
@@ -129,10 +131,12 @@
             },
             dataType: "json",
             success: function(response) {
-                console.log(likes_count);
-                console.log(response.message);
-                {#$('.pb'+pk).css('width', (response.likes_count/{{ all_member }})*100+'%');#}
-                {#$('#'+pk).text(' ' + response.message);#}
+                $("#modal-result-count").text(response.likes_count);
+                $('#modal-result').empty();
+                var len = response.message.length
+                for(i=0;i<len;++i){
+                    $('#modal-result').append("<li>"+response.message[i]+"</li>");
+                }
             },
             error: function(request, status, error) {
                 console.log("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
