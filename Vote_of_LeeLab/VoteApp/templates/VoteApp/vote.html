@@ -73,7 +73,7 @@
 
     $(document).ready(function () {
         $('[name^=vote]').each(function () {
-            var pk = $(this).attr('id');
+            let pk = $(this).attr('id');
             $.ajax({
                 type: "POST",
                 {% if user.is_authenticated %}
@@ -89,11 +89,10 @@
                 success: function(response) {
                     $('#'+pk).text(' ' + response.message);
                     if(dday>0){
-                        $('#' + pk).attr('class', (response.message != "투표취소 ") ? 'like btn btn-success glyphicon glyphicon-thumbs-up' : 'like btn btn-danger glyphicon glyphicon-thumbs-down');
+                        $('#' + pk).attr('class', (response.message !== "투표취소 ") ? 'like btn btn-success glyphicon glyphicon-thumbs-up' : 'like btn btn-danger glyphicon glyphicon-thumbs-down');
                     }
                     else{
-                        $('#' + pk).attr('class', (response.message != "투표취소 ") ? 'like btn btn-success glyphicon glyphicon-thumbs-up disabled' : 'like btn btn-danger glyphicon glyphicon-thumbs-down disabled');
-                        $('#' + pk).attr('disabled', 'disabled');
+                        $('#' + pk).attr('class', (response.message !== "투표취소 ") ? 'like btn btn-success glyphicon glyphicon-thumbs-up disabled' : 'like btn btn-danger glyphicon glyphicon-thumbs-down disabled').attr('disabled', 'disabled');
                     }
                 },
                 error: function(request, status, error) {
@@ -106,15 +105,15 @@
     $(document).ready(function () {
         if (dday > 0) {
             var timer = setInterval(function () {
-                if (dday == 0) {
+                if (dday === 0) {
                     notify();
                     location.reload();
                 } else {
-                    var rest = --dday;
-                    var sec = rest % 60;
-                    var min = ((rest - sec) / 60) % 60;
-                    var hours = ((((rest - sec) / 60) - min) / 60) % 24;
-                    var days = ((((((rest - sec) / 60) - min) / 60) - hours) / 24);
+                    let rest = --dday;
+                    let sec = rest % 60;
+                    let min = ((rest - sec) / 60) % 60;
+                    let hours = ((((rest - sec) / 60) - min) / 60) % 24;
+                    let days = ((((((rest - sec) / 60) - min) / 60) - hours) / 24);
 
                     $("#sec").html((sec < 10) ? ('0' + sec) : sec);
                     $("#min").html((min < 10) ? ('0' + min) : min);
@@ -130,7 +129,7 @@
 
     {% if user.is_authenticated %}
     $('.like').click(function() {
-        var pk = $(this).attr('id');
+        let pk = $(this).attr('id');
         $.ajax({
             type: "POST",
             url: "{% url 'like' %}",
@@ -142,8 +141,7 @@
             success: function(response) {
                 $('.pb'+pk).css('width', (response.likes_count/{{ all_member }})*100+'%');
                 $('.pb'+pk+' span').text(response.likes_count+' / '+{{ all_member }});
-                $('#'+pk).text(' ' + response.message);
-                $('#'+pk).attr('class', (response.message!="투표취소 ")?'like btn btn-success glyphicon glyphicon-thumbs-up':'like btn btn-danger glyphicon glyphicon-thumbs-down');
+                $('#'+pk).text(' ' + response.message).attr('class', (response.message!=="투표취소 ")?'like btn btn-success glyphicon glyphicon-thumbs-up':'like btn btn-danger glyphicon glyphicon-thumbs-down');
             },
             error: function(request, status, error) {
                 console.log("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);

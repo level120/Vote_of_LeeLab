@@ -203,8 +203,9 @@ def vote(request):
 
 
 def result(request):
-    likes = Like.objects.filter(isVote=True).order_by('-likes')
     # likes = Like.objects.annotate(like_count=Count('likes')).order_by('-likes')
+    #likes = Like.objects.filter(isVote=True).order_by('-likes')
+    likes = Like.objects.distinct().order_by('-likes')
     if (COUNTDOWN_TARGET_DATE + DURIONG_DATE) > timezone.localtime():
         td = (COUNTDOWN_TARGET_DATE + DURIONG_DATE) - timezone.localtime()
         send_data = (td.days * 86400) + td.seconds
@@ -283,8 +284,10 @@ def like(request):
         user = request.user
         name_id = request.POST.get('pk', None)
         obj = Like.objects.get(pk = name_id)
+        # obj = get_object_or_404(Like, slug=name_id)
 
-        if obj.likes.filter(pk = name_id).exists():
+        #if obj.likes.filter(pk = name_id).exists():
+        if obj.likes.filter(id=user.id).exists():
             obj.likes.remove(user)
             message = '투표하기 '
         else:
@@ -299,10 +302,13 @@ def like(request):
 @require_POST
 def like_ready(request):
     if request.method == 'POST':
+        user = request.user
         name_id = request.POST.get('pk', None)
         obj = Like.objects.get(pk = name_id)
+        # obj = get_object_or_404(Like, slug=name_id)
 
-        if obj.likes.filter(pk = name_id).exists():
+        #if obj.likes.filter(pk = name_id).exists():
+        if obj.likes.filter(id=user.id).exists():
             message = '투표취소 '
         else:
             message = '투표하기 '
@@ -316,6 +322,7 @@ def like_anonymous(request):
     if request.method == 'POST':
         name_id = request.POST.get('pk', None)
         obj = Like.objects.get(pk = name_id)
+        # obj = get_object_or_404(Like, slug=name_id)
         message = '투표하기 '
 
     context = {'likes_count': obj.total_likes, 'message': message}
