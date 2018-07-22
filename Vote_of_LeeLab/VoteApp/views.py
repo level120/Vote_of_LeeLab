@@ -24,7 +24,7 @@ from django.contrib.auth import login
 
 # CountDown
 # Windows에서 개발 시 locale 설정, Unix 시스템에 배포 시 반드시 주석처리 할 것.
-locale.setlocale(locale.LC_CTYPE, 'korean')
+#locale.setlocale(locale.LC_CTYPE, 'korean')
 
 COUNTDOWN_TARGET_DATE = VoteDate.objects.get(pk=1).start_date
 DURIONG_DATE = VoteDate.objects.get(pk=1).end_date - VoteDate.objects.get(pk=1).start_date
