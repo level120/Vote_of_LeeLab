@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Like
+from .models import Like, VoteDate, VoteResult
 
 # Register your models here.
 #admin.site.register(Like)
@@ -8,3 +8,7 @@ from .models import Like
 class LikeAdmin(admin.ModelAdmin):
     list_display = ['id', 'name_id', 'name', 'description', 'isVote', 'prize', 'total_likes']
     list_display_links = ['name_id']
+
+
+admin.site.register(VoteDate)
+admin.site.register(VoteResult)

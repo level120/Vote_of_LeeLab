@@ -1,7 +1,6 @@
-from django.shortcuts import render, render_to_response, redirect, get_object_or_404
-from django.template import RequestContext
+from django.shortcuts import render, redirect
 from django.utils import timezone
-import datetime, time, locale
+import datetime, locale
 
 # Like and Dislike
 # https://wayhome25.github.io/django/2017/03/01/django-99-my-first-project-4/
@@ -9,12 +8,12 @@ try:
     from django.utils import simplejson as json
 except ImportError:
     import json
-from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
 from django.http import HttpResponse
-from .models import Like
+from .models import Like, VoteDate
 from .forms import LikeForm
+from django.db.models import Count
 
 # Registrator of user
 from .forms import BootstrapAuthenticationForm
@@ -27,8 +26,8 @@ from django.contrib.auth import login
 # Windows에서 개발 시 locale 설정, Unix 시스템에 배포 시 반드시 주석처리 할 것.
 #locale.setlocale(locale.LC_CTYPE, 'korean')
 
-COUNTDOWN_TARGET_DATE = timezone.make_aware(datetime.datetime(2018, 7, 21, 12, 00, 00, 000000))
-DURIONG_DATE = datetime.timedelta(days=0, seconds=86399)
+COUNTDOWN_TARGET_DATE = VoteDate.objects.get(pk=1).start_date
+DURIONG_DATE = VoteDate.objects.get(pk=1).end_date - VoteDate.objects.get(pk=1).start_date
 
 def index(request):
     '''
@@ -156,7 +155,6 @@ def vote(request):
     almost request & reply uesd ajax
     '''
     likes = Like.objects.filter(isVote=True)
-    #likes = Like.objects.annotate(like_count=Count('likes')).order_by('-likes')
     if COUNTDOWN_TARGET_DATE > timezone.localtime():
         return redirect('/index')
     elif (COUNTDOWN_TARGET_DATE + DURIONG_DATE) > timezone.localtime():
@@ -203,9 +201,7 @@ def vote(request):
 
 
 def result(request):
-    # likes = Like.objects.annotate(like_count=Count('likes')).order_by('-likes')
-    #likes = Like.objects.filter(isVote=True).order_by('-likes')
-    likes = Like.objects.distinct().order_by('-likes')
+    likes = Like.objects.annotate(like_count=Count('likes')).order_by('-like_count')
     if (COUNTDOWN_TARGET_DATE + DURIONG_DATE) > timezone.localtime():
         td = (COUNTDOWN_TARGET_DATE + DURIONG_DATE) - timezone.localtime()
         send_data = (td.days * 86400) + td.seconds
@@ -283,10 +279,8 @@ def like(request):
     if request.method == 'POST':
         user = request.user
         name_id = request.POST.get('pk', None)
-        obj = Like.objects.get(pk = name_id)
-        # obj = get_object_or_404(Like, slug=name_id)
+        obj = Like.objects.get(pk=name_id)
 
-        #if obj.likes.filter(pk = name_id).exists():
         if obj.likes.filter(id=user.id).exists():
             obj.likes.remove(user)
             message = '투표하기 '
@@ -304,10 +298,8 @@ def like_ready(request):
     if request.method == 'POST':
         user = request.user
         name_id = request.POST.get('pk', None)
-        obj = Like.objects.get(pk = name_id)
-        # obj = get_object_or_404(Like, slug=name_id)
+        obj = Like.objects.get(pk=name_id)
 
-        #if obj.likes.filter(pk = name_id).exists():
         if obj.likes.filter(id=user.id).exists():
             message = '투표취소 '
         else:
@@ -321,7 +313,7 @@ def like_ready(request):
 def like_anonymous(request):
     if request.method == 'POST':
         name_id = request.POST.get('pk', None)
-        obj = Like.objects.get(pk = name_id)
+        obj = Like.objects.get(pk=name_id)
         # obj = get_object_or_404(Like, slug=name_id)
         message = '투표하기 '
 
@@ -334,7 +326,7 @@ def like_anonymous(request):
 def like_result(request):
     if request.method == 'POST':
         name_id = request.POST.get('pk', None)
-        obj = Like.objects.get(pk = name_id)
+        obj = Like.objects.get(pk=name_id)
         itr = obj.likes.all()
         message = []
         for i in itr:
