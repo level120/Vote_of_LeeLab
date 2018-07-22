@@ -1,0 +1,25 @@
+도커 실행 시 유의사항
+
+docker run -it -d \ 터미널, 표준입력 사용, 데몬으로 동작
+	--name vote \	이름은 vote
+	-p 80:80 \	호스트 포트 80번을 컨테이너 포트 80번으로 바인딩
+	-p 443:443 \	호스트 포트 443번을 컨테이너 포트 443번으로 바인딩
+	-v /home/server/django_server/Vote_of_LeeLab:/var/www \	호스트의 /home/server/django_server/Vote_of_LeeLab과 컨테이너의 /var/www 연결
+	-v /etc/timezone:/etc/timezone:ro \	호스트의 시간과 컨테이너 시간 동기화를 위해 필요
+	-v /etc/localtime:/etc/localtime:ro \	호스트의 시간과 컨테이너 시간 동기화를 위해 필요
+	-e TZ=Asia/Seoul \	호스트의 시간과 컨테이너 시간 동기화를 위해 필요(Timezone 설정)
+	django_vote_0722 \	이미지 이름
+	/bin/bash		엔터 포인트
+
+##### below copy & paste #####
+
+docker run -it -d \
+	--name vote \
+	-v /home/server/django_server/Vote_of_LeeLab:/var/www \
+	-p 80:80 \
+	-p 443:443 \
+	-v /etc/timezone:/etc/timezone:ro \
+	-v /etc/localtime:/etc/localtime:ro \
+	-e TZ=Asia/Seoul \
+	django_vote_0722 \
+	/bin/bash

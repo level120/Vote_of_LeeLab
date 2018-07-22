@@ -6,7 +6,7 @@ from django.utils import timezone
 
 class VoteDate(models.Model):
     start_date = models.DateTimeField(default=timezone.now())
-    end_date = models.DateTimeField(default=(timezone.now()+timezone.timedelta(days=7))-timezone.timedelta(seconds=1))
+    end_date = models.DateTimeField(default=(timezone.datetime.now()+timezone.timedelta(days=7))-timezone.timedelta(seconds=1))
 
 
 class VoteResult(models.Model):
