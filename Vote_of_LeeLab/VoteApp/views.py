@@ -26,12 +26,6 @@ from django.contrib.auth import login
 # Windows에서 개발 시 locale 설정, Unix 시스템에 배포 시 반드시 주석처리 할 것.
 #locale.setlocale(locale.LC_CTYPE, 'korean')
 
-COUNTDOWN_TARGET_DATE = VoteDate.objects.get(pk=1).start_date
-DURIONG_DATE = VoteDate.objects.get(pk=1).end_date - VoteDate.objects.get(pk=1).start_date
-print(COUNTDOWN_TARGET_DATE)
-print(DURIONG_DATE)
-print(COUNTDOWN_TARGET_DATE + DURIONG_DATE)
-
 def index(request):
     '''
     [index page]
@@ -39,6 +33,9 @@ def index(request):
     "elif" is after start time and before end time
     "else" is after end time
     '''
+    COUNTDOWN_TARGET_DATE = VoteDate.objects.get(pk=1).start_date
+    DURIONG_DATE = VoteDate.objects.get(pk=1).end_date - VoteDate.objects.get(pk=1).start_date
+
     if COUNTDOWN_TARGET_DATE > timezone.now():
         td = COUNTDOWN_TARGET_DATE - timezone.now()
         send_data = (td.days * 86400) + td.seconds
@@ -89,6 +86,9 @@ def about(request):
 
 @login_required
 def candidate(request):
+    COUNTDOWN_TARGET_DATE = VoteDate.objects.get(pk=1).start_date
+    DURIONG_DATE = VoteDate.objects.get(pk=1).end_date - VoteDate.objects.get(pk=1).start_date
+
     if COUNTDOWN_TARGET_DATE > timezone.now():
         excet_value = True
         try:
@@ -157,6 +157,9 @@ def vote(request):
     [vote page]
     almost request & reply uesd ajax
     '''
+    COUNTDOWN_TARGET_DATE = VoteDate.objects.get(pk=1).start_date
+    DURIONG_DATE = VoteDate.objects.get(pk=1).end_date - VoteDate.objects.get(pk=1).start_date
+
     likes = Like.objects.filter(isVote=True)
     if COUNTDOWN_TARGET_DATE > timezone.now():
         return redirect('/index')
@@ -204,6 +207,9 @@ def vote(request):
 
 
 def result(request):
+    COUNTDOWN_TARGET_DATE = VoteDate.objects.get(pk=1).start_date
+    DURIONG_DATE = VoteDate.objects.get(pk=1).end_date - VoteDate.objects.get(pk=1).start_date
+
     likes = Like.objects.annotate(like_count=Count('likes')).order_by('-like_count')
     if (COUNTDOWN_TARGET_DATE + DURIONG_DATE) > timezone.now():
         td = (COUNTDOWN_TARGET_DATE + DURIONG_DATE) - timezone.now()
