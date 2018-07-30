@@ -3,9 +3,7 @@ Vote Project
 
 # Status
 
-[![Build Status](http://chenny.ml:8080/buildStatus/icon?job=Django Vote)](http://chenny.ml:8080/job/Django Vote)
-
-
+[![Build Status](http://chenny.ml:8080/buildStatus/icon?job=DjangoVote)](http://chenny.ml:8080/job/DjangoVote/)
 
 # Django 사용
 
