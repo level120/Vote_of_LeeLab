@@ -108,6 +108,7 @@ INSTALLED_APPS = [
     'social_django',
     #'notifications',
     'mathfilters',
+    'fcm',
 ]
 
 MIDDLEWARE = [
@@ -207,3 +208,7 @@ STATIC_URL = '/static/'
 
 #STATIC_ROOT = posixpath.join(*(BASE_DIR.split(os.path.sep) + ['static']))
 STATIC_ROOT = os.path.join(BASE_DIR, 'VoteApp/static')
+
+
+# FCM
+FCM_APIKEY = "AIzaSyCs_SqgsPhDA3tWN8ixuN3X3KCZqfLILQ4"

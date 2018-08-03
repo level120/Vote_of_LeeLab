@@ -24,7 +24,7 @@ from django.contrib.auth import login
 
 # CountDown
 # Windows에서 개발 시 locale 설정, Unix 시스템에 배포 시 반드시 주석처리 할 것.
-#locale.setlocale(locale.LC_CTYPE, 'korean')
+locale.setlocale(locale.LC_CTYPE, 'korean')
 
 def index(request):
     '''
@@ -80,6 +80,25 @@ def about(request):
             'type' : "article",
             'title' : "도움말",
             'content' : "테스트 페이지"
+        }
+    )
+
+
+def camera(request):
+    '''
+    [camera page]
+    iframe to node.js server
+    '''
+    return render(
+        request,
+        "VoteApp/camera.html",
+        {
+            'url' : "https://chenny.ml/camera/",
+            'description' : "CCTV 영상",
+            'sitename' : "Lee Lab Server",
+            'locale' : "ko_KR",
+            'type' : "article",
+            'title' : "CCTV 영상",
         }
     )
 

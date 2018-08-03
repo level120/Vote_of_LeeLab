@@ -23,6 +23,7 @@ urlpatterns = [
     # Examples:
     url(r'^$', VoteApp.views.index, name='index'),
     url(r'^about$', VoteApp.views.about, name='about'),
+    url(r'^camera$', VoteApp.views.camera, name='camera'),
     url(r'^candidate$', VoteApp.views.candidate, name='candidate'),
     # url(r'^candidate/(?P<pk>\w+)$', VoteApp.views.candidate, name='candidate'),
     url(r'^vote$', VoteApp.views.vote, name='vote'),
@@ -65,4 +66,7 @@ urlpatterns = [
      url(r'^like_anonymous/$', VoteApp.views.like_anonymous, name='like_anonymous'),
      url(r'^like_ready/$', VoteApp.views.like_ready, name='like_ready'),
      url(r'^like_result/$', VoteApp.views.like_result, name='like_result'),
+
+    # FCM
+    url(r'', include('fcm.urls')),
 ]
