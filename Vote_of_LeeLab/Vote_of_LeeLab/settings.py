@@ -109,6 +109,7 @@ INSTALLED_APPS = [
     #'notifications',
     'mathfilters',
     'fcm',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
