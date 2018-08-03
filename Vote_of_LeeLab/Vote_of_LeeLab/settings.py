@@ -211,4 +211,4 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'VoteApp/static')
 
 
 # FCM
-FCM_APIKEY = "AIzaSyCs_SqgsPhDA3tWN8ixuN3X3KCZqfLILQ4"
+FCM_APIKEY = "{{API_KEY}}"
