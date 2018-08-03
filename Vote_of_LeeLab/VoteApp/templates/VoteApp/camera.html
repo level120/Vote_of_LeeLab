@@ -1,8 +1,13 @@
 ﻿{% extends "VoteApp/layout.html" %}
 {% block content %}
-<section>
-<div class="embed-responsive embed-responsive-16by9">
-  <iframe class="embed-responsive-item" src="https://chenny.ml:8000" scrolling="auto" allowfullscreen></iframe>
-</div>
-</section>
+    <section>
+
+        <div class="alert alert-warning" role="alert">
+            <p style="text-align: center">연결이 안정 상태가 아닙니다.&nbsp;페이지가 나타나지 않을 경우 페이지 차단을 해제한 뒤 시도해 주세요.</p>
+        </div>
+
+        <div class="embed-responsive embed-responsive-16by9">
+            <iframe class="embed-responsive-item" src="https://chenny.ml:8000" scrolling="auto" allowfullscreen></iframe>
+        </div>
+    </section>
 {% endblock %}
