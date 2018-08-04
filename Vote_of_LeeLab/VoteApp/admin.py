@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Like, VoteDate, VoteResult
+from .models import Like, VoteDate, VoteResult, Rtsp
 
 # Register your models here.
 #admin.site.register(Like)
@@ -12,3 +12,4 @@ class LikeAdmin(admin.ModelAdmin):
 
 admin.site.register(VoteDate)
 admin.site.register(VoteResult)
+admin.site.register(Rtsp)

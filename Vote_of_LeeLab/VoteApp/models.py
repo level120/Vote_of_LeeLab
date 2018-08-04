@@ -34,3 +34,7 @@ class Like(models.Model):
 
     def save(self, *args, **kwargs):
         super(Like, self).save(*args, **kwargs)
+
+
+class Rtsp(models.Model):
+    url = models.CharField(max_length=300)

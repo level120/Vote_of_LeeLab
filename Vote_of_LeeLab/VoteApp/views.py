@@ -10,7 +10,7 @@ except ImportError:
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
 from django.http import HttpResponse
-from .models import Like, VoteDate
+from .models import Like, VoteDate, Rtsp
 from .forms import LikeForm
 from django.db.models import Count
 from django.utils import timezone
@@ -89,6 +89,7 @@ def camera(request):
     [camera page]
     iframe to node.js server
     '''
+    url = Rtsp.objects.get(pk=1).url
     return render(
         request,
         "VoteApp/camera.html",
@@ -99,6 +100,7 @@ def camera(request):
             'locale' : "ko_KR",
             'type' : "article",
             'title' : "CCTV 영상",
+            'url' : url,
         }
     )
 
