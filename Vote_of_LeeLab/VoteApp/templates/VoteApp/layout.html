@@ -73,9 +73,10 @@
                             <li><a>{{ user.last_name }}{{ user.first_name }} 님 로그인</a></li>
                             {% endif %}
                             <li><a href="{% url 'index' %}">Home</a></li>
+                            <li><a href="{% url 'camera' %}">Camera</a></li>
                             <li><a href="{% url 'about' %}">About</a></li>
                             {% if user.is_authenticated %}
-                            <li><a href="{% url 'candidate' %}">설정</a></li>
+                            <li><a href="{% url 'candidate' %}">Settings</a></li>
 {#                            <li><a href="{% url 'candidate' user.username %}">설정</a></li>#}
                             <li><a href="{% url 'logout' %}">Logout</a></li>
                             {% else %}
@@ -92,9 +93,10 @@
                     <li><a>{{ user.last_name }}{{ user.first_name }} 님 로그인</a></li>
                     {% endif %}
                     <li><a href="{% url 'index' %}">Home</a></li>
+                    <li><a href="{% url 'camera' %}">Camera</a></li>
                     <li><a href="{% url 'about' %}">About</a></li>
                     {% if user.is_authenticated %}
-                    <li><a href="{% url 'candidate' %}">설정</a></li>
+                    <li><a href="{% url 'candidate' %}">Settings</a></li>
 {#                    <li><a href="{% url 'candidate' user.username %}">설정</a></li>#}
                     <li><a href="{% url 'logout' %}">Logout</a></li>
                     {% else %}
